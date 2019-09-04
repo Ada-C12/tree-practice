@@ -68,6 +68,16 @@ describe Tree do
                                          {:key=>10, :value=>"Karla"}, {:key=>5, :value=>"Peter"}]
     end
   end
+  
+  describe "height" do
+    it "returns 0 for an empty tree" do
+      expect(tree.height).must_equal 0
+    end
+
+    it "returns correct height of tree" do
+      expect(tree_with_nodes.height).must_equal 4
+    end
+  end
 
   describe "breadth first search" do
     it "will give an empty array for an empty tree" do
