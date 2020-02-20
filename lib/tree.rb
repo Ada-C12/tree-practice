@@ -19,7 +19,7 @@ class Tree
   # Time Complexity: 
   # Space Complexity: 
   def add(key, value)
-    raise NotImplementedError
+    puts "test"
   end
 
   # Time Complexity: 
