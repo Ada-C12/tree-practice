@@ -120,8 +120,23 @@ class Tree
 
   # Time Complexity: 
   # Space Complexity: 
+  def postorder_helper(current_node, list)
+    return list if current_node.nil?
+
+    # left side
+    postorder_helper(current_node.left, list)
+
+    # right side
+    postorder_helper(current_node.right, list)
+
+    # middle node
+    list << { key: current_node.key, value: current_node.value }
+
+    return list
+  end
+
   def postorder
-    raise NotImplementedError
+    return postorder_helper(@root, [])
   end
 
   # Time Complexity: 
