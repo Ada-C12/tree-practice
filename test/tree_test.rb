@@ -85,7 +85,7 @@ describe Tree do
     end
   end
 
-  xdescribe "height" do
+  describe "height" do
     it "will return 0 if tree is empty" do
       expect(tree.height()).must_equal 0
     end

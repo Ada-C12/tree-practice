@@ -99,10 +99,10 @@ class Tree
     postorder_helper(@root, [])
   end
 
-  # Time Complexity:
-  # Space Complexity:
+  # Time Complexity: O(n)
+  # Space Complexity: O(2n) or O(n)
   def height
-    raise NotImplementedError
+    return height_helper(@root)
   end
 
   # Optional Method
@@ -170,5 +170,18 @@ class Tree
     list << { key: current_node.key, value: current_node.value }
 
     return list
+  end
+
+  def height_helper(current_node)
+    return 0 if current_node.nil?
+
+    left_height = height_helper(current_node.left)
+    right_height = height_helper(current_node.right)
+
+    if left_height >= right_height
+      return left_height + 1
+    else
+      return right_height + 1
+    end
   end
 end
