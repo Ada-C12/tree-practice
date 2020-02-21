@@ -16,8 +16,8 @@ class Tree
     @root = nil
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(log n)
+  # Space Complexity: O(1)
   def add(key, value)
     @root = add_helper(@root, key, value)
   end
@@ -35,8 +35,8 @@ class Tree
     
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(log n)
+  # Space Complexity: O(1)
   def find(key)
     # raise NotImplementedError
     current = @root
@@ -66,12 +66,11 @@ class Tree
     return list 
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(1)
   def inorder
     return inorder_helper(@root, [])
   end
-
 
   # Time Complexity: O(n) call visit on each node exactly once
   # Space Complexity: 
@@ -91,8 +90,8 @@ class Tree
     preorder_helper(current_node.right, list)
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n), one call made per visit on each node
+  # Space Complexity: O(n) - where n refers to the stack
   # left right current
   def postorder
     # raise NotImplementedError
@@ -101,54 +100,70 @@ class Tree
 
   def postorder_helper(current_node, list)
     return list if current_node.nil?  
-  
     postorder_helper(current_node.left, list)
     postorder_helper(current_node.right, list)
-    list <<  { key: current_node.key, value: current_node.value}
+    list << { key: current_node.key, value: current_node.value}
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(1)
   def height
-    raise NotImplementedError
+    return height_helper(@root, 0)
+    # If the current node is nil return 0
+    # Otherwise return 1 plus the maximum of the heights of the right and left subtrees
+  end
+
+  def height_helper(current_node, height)
+    return height if current_node.nil?
+    height_helper(current_node.left, height + 1)
+    height_helper(current_node.right, height + 1)
   end
 
   # Optional Method
   # Time Complexity: 
   # Space Complexity: 
-  def bfs
-    raise NotImplementedError
-  end
+  # all leaves then all parents up to root
+  # def bfs
+  #   # raise NotImplementedError?
+  #   return bfs_helper(@root, [])
+  # end
+
+  # def bfs_helper(current_node, list)
+  #   visited = {}
+  
+  #   return list if current_node.nil? 
+  #   q = new Queue
+  #   q.push(current_node)
+  #   while(!q.empty?)
+  #     node_to_record = q.pop
+  #     list << {key: node_to_record.key, value: node_to_record.value}
+  #     if 
+  #   end
+
+
+    # visited[current_node] = true
+    # list << { key: current_node.key, value: current_node.value}
+    # if current_node.left
+    #   left = current_node.left 
+    #   list << { key: left.key, value: left.value}
+      
+    # end
+    # if current_node.right
+    #   right = current_node.right if current_node.right
+    #   list << { key: right.key, value: right.value}
+    # end
+    
+    # // go down a level
+    # bfs_helper(current_node.left, list)
+    # bfs_helper(current_node.right, list)
+  #   bfs_helper(current_node.left, list)
+    
+  # end
+
+
 
   # Useful for printing
   def to_s
     return "#{self.inorder}"
   end
 end
-
-
-# long form nodes from add 
- # if @root.nil?
-    #   @root = TreeNode.new(key, value)
-    # else
-      # current = @root
-    
-      # while true
-      # if key < current.key
-      #   if !current.left.nil?
-      #     current = current.left
-      #   else 
-      #     current.left = TreeNode.new(key, value)
-      #     return
-      #   end
-      # else
-      #   if !current.right.nil?
-      #     current = current.right
-      #   else 
-      #     current.right = TreeNode.new(key, value)
-      #     return
-      #   end
-      # end
-
-    
-    # return add_helper(@root, value)
