@@ -132,8 +132,8 @@ class Tree
     height_helper(current_node.right, max, count + 1)
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n) where n is the number of nodes
+  # Space Complexity: O(n) where n is the number of nodes
   def height
     return 0 if @root.nil?
     return height_helper(@root, 0, 1)
