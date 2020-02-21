@@ -59,10 +59,21 @@ class Tree
     # end
   end
 
+  def find_helper(current_node, key)
+    return nil if current_node.nil?
+    return current_node.value if current_node.key == key
+
+    if key < current_node.key
+      find_helper(current_node.left, key)
+    else
+      find_helper(current_node.right, key)
+    end
+  end
+
   # Time Complexity: 
   # Space Complexity: 
   def find(key)
-    raise NotImplementedError
+    return find_helper(@root, key)
   end
 
   def inorder_helper(current_node, list)
@@ -77,7 +88,7 @@ class Tree
   # Space Complexity: 
   def inorder
     # left -> current node -> right
-   return inorder_helper(@root, [])
+    return inorder_helper(@root, [])
   end
 
   # Time Complexity: 
