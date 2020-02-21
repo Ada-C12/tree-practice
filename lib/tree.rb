@@ -96,7 +96,7 @@ class Tree
   # Time Complexity:
   # Space Complexity:
   def postorder
-    raise NotImplementedError
+    postorder_helper(@root, [])
   end
 
   # Time Complexity:
@@ -158,6 +158,16 @@ class Tree
     list << { key: current_node.key, value: current_node.value }
     preorder_helper(current_node.left, list)
     preorder_helper(current_node.right, list)
+
+    return list
+  end
+
+  def postorder_helper(current_node, list)
+    return list if current_node.nil?
+
+    postorder_helper(current_node.left, list)
+    postorder_helper(current_node.right, list)
+    list << { key: current_node.key, value: current_node.value }
 
     return list
   end
