@@ -130,8 +130,6 @@ class Tree
 
     height_helper(current_node.left, max, count + 1)
     height_helper(current_node.right, max, count + 1)
-
-    # return max
   end
 
   # Time Complexity: 
