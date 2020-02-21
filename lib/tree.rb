@@ -90,7 +90,7 @@ class Tree
   # Time Complexity:
   # Space Complexity:
   def preorder
-    raise NotImplementedError
+    preorder_helper(@root, [])
   end
 
   # Time Complexity:
@@ -148,6 +148,16 @@ class Tree
     inorder_helper(current_node.left, list)
     list << { key: current_node.key, value: current_node.value }
     inorder_helper(current_node.right, list)
+
+    return list
+  end
+
+  def preorder_helper(current_node, list)
+    return list if current_node.nil?
+
+    list << { key: current_node.key, value: current_node.value }
+    preorder_helper(current_node.left, list)
+    preorder_helper(current_node.right, list)
 
     return list
   end
