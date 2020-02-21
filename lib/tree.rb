@@ -85,7 +85,6 @@ class Tree
   end
 
   def preorder_helper(current_node, list)
-   
     return list if current_node.nil?
     list <<  { key: current_node.key, value: current_node.value}
     preorder_helper(current_node.left, list)
@@ -94,8 +93,18 @@ class Tree
 
   # Time Complexity: 
   # Space Complexity: 
+  # left right current
   def postorder
-    raise NotImplementedError
+    # raise NotImplementedError
+    return postorder_helper(@root, [])
+  end
+
+  def postorder_helper(current_node, list)
+    return list if current_node.nil?  
+  
+    postorder_helper(current_node.left, list)
+    postorder_helper(current_node.right, list)
+    list <<  { key: current_node.key, value: current_node.value}
   end
 
   # Time Complexity: 
