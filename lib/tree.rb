@@ -67,8 +67,8 @@ class Tree
     return current_node
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: Olog(n) where n is the number of nodes it will traverse
+  # Space Complexity: Olog(n) where n is the number of function calls
   def find(key)
     # raise NotImplementedError
     return nil if @root == nil
@@ -105,22 +105,55 @@ class Tree
     return list
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n) where n is number of nodes
+  # Space Complexity: O(n) where n is the number of function calls
   def preorder
-    raise NotImplementedError
+    # raise NotImplementedError
+    return preorder_helper(@root, [])
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  def preorder_helper(current_node,list)
+    return list if current_node.nil?
+
+    list << { key: current_node.key, value: current_node.value }
+
+    preorder_helper(current_node.left, list)
+    preorder_helper(current_node.right, list)
+    
+    return list
+  end
+
+  # Time Complexity: O(n) where n is number of nodes
+  # Space Complexity: O(n) where n is the number of function calls
   def postorder
-    raise NotImplementedError
+    return postorder_helper(@root, [])
+  end
+  def postorder_helper(current_node, list)
+    return list if current_node.nil?
+
+    postorder_helper(current_node.left, list)
+    postorder_helper(current_node.right, list)
+    list << { key: current_node.key, value: current_node.value }
+    
+    return list
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n) where is equal to number of each single node in the tree
+  # Space Complexity: O(n) where n is the number of functino calls
   def height
-    raise NotImplementedError
+    # raise NotImplementedError
+    # return 0 if @root.nil?
+    return height_helper(@root, 0, 1)
+  end
+
+  def height_helper(current_node, max, count)
+    return max if current_node.nil?
+    if count > max
+      max = count
+    end
+
+    height_helper(current_node.left, max, count+1)
+    height_helper(current_node.right, max, count+1)
   end
 
   # Optional Method
@@ -133,5 +166,12 @@ class Tree
   # Useful for printing
   def to_s
     return "#{self.inorder}"
+  end
+
+  # Optional Method
+  # Time Complexity: 
+  # Space Complexity: 
+  def delete
+    raise NotImplementedError
   end
 end
