@@ -16,8 +16,8 @@ class Tree
     @root = nil
   end
   
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n) if the tree is unbalanced and resembles a linked list
+  # Space Complexity: O(1)
   def add(key, value)
     # if @root.nil?
     #   @root = TreeNode.new(key, value)
@@ -60,8 +60,8 @@ class Tree
     return current
   end
   
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n) if the BST starts to resembles a linked list
+  # Space Complexity: O(1)
   def find(key)
     current = @root
     
@@ -78,8 +78,8 @@ class Tree
     return nil
   end
   
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n) We are passing by reference?
   def inorder
     # return an array
     inorder_helper(@root, [])
@@ -97,8 +97,8 @@ class Tree
     return list
   end
   
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def preorder
     preorder_helper(@root, [])
   end
@@ -115,8 +115,8 @@ class Tree
     return list
   end
   
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def postorder
     postorder_helper(@root, [])
   end
@@ -132,8 +132,8 @@ class Tree
     return list
   end
   
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n) for the count variables?
   def height
     height_helper(@root, 0)
   end
@@ -150,8 +150,8 @@ class Tree
   end
   
   # Optional Method
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def bfs
     return [] if @root.nil?
     
