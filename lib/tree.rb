@@ -87,14 +87,14 @@ class Tree
     inorder_helper(@root, [])
   end
 
-  # Time Complexity:
-  # Space Complexity:
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def preorder
     preorder_helper(@root, [])
   end
 
-  # Time Complexity:
-  # Space Complexity:
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def postorder
     postorder_helper(@root, [])
   end
