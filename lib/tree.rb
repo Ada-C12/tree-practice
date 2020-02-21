@@ -121,20 +121,36 @@ class Tree
     return postorder_helper(@root, [])
   end
 
-  def height_helper
+  def height_helper(current_node, max, count)
+    return max if current_node.nil?
+
+    if count > max
+      max = count
+    end
+
+    height_helper(current_node.left, max, count + 1)
+    height_helper(current_node.right, max, count + 1)
+
+    # return max
   end
+
   # Time Complexity: 
   # Space Complexity: 
   def height
-    raise NotImplementedError
+    return 0 if @root.nil?
+    return height_helper(@root, 0, 1)
   end
 
-  def bfs
-  end
   # Optional Method
   # Time Complexity: 
   # Space Complexity: 
   def bfs
+    raise NotImplementedError
+  end
+
+  # Time Complexity: 
+  # Space Complexity: 
+  def delete
     raise NotImplementedError
   end
 
