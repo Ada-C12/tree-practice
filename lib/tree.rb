@@ -70,8 +70,8 @@ class Tree
     end
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(logn) where n is the number of nodes
+  # Space Complexity: O(logn) where n is the number of nodes
   def find(key)
     return find_helper(@root, key)
   end
@@ -91,24 +91,46 @@ class Tree
     return inorder_helper(@root, [])
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  def preorder_helper(current_node, list)
+    # root -> left -> right
+    return list if current_node.nil?
+    list << { key: current_node.key, value: current_node.value }
+    preorder_helper(current_node.left, list)
+    preorder_helper(current_node.right, list)
+    return list
+  end
+
+  # Time Complexity: O(logn) where n is the number of nodes
+  # Space Complexity: O(logn) where n is the number of nodes
   def preorder
-    raise NotImplementedError
+    return preorder_helper(@root, [])
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  def postorder_helper(current_node, list)
+    return list if current_node.nil?
+    postorder_helper(current_node.left, list)
+    postorder_helper(current_node.right, list)
+    list << { key: current_node.key, value: current_node.value }
+    return list
+  end
+
+  # Time Complexity: O(logn) where n is the number of nodes
+  # Space Complexity: O(logn) where n is the number of nodes
   def postorder
-    raise NotImplementedError
+    # left -> right -> root
+    return postorder_helper(@root, [])
   end
 
+  def height_helper
+  end
   # Time Complexity: 
   # Space Complexity: 
   def height
     raise NotImplementedError
   end
 
+  def bfs
+  end
   # Optional Method
   # Time Complexity: 
   # Space Complexity: 
