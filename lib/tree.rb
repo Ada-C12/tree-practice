@@ -61,8 +61,8 @@ class Tree
     return current_node
   end
   
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(log(n)) where n is the number of nodes
+  # Space Complexity: O(log(n)) where n is the number of nodes
   def find(key)
     helper_find(@root, key)
   end
@@ -101,28 +101,78 @@ class Tree
     return list
   end
   
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n) where n is the number of nodes
+  # Space Complexity: O(n) where n is the number of nodes
   def preorder
-    raise NotImplementedError
+    return preorder_helper(@root, [])
   end
   
-  # Time Complexity: 
-  # Space Complexity: 
+  def preorder_helper(current_node, list)
+    if current_node.nil?
+      return list
+    end
+    
+    # Add the root
+    list << { key: current_node.key, value: current_node.value}
+    
+    # Do preorder on left subtree
+    preorder_helper(current_node.left, list)
+    
+    # Do preorder on right subtree
+    preorder_helper(current_node.right, list)
+    return list
+  end
+  
+  # Time Complexity: O(n) where n is the number of nodes
+  # Space Complexity: O(n) where n is the number of nodes
   def postorder
-    raise NotImplementedError
+    return postorder_helper(@root, [])
   end
   
-  # Time Complexity: 
-  # Space Complexity: 
+  def postorder_helper(current_node, list)
+    if current_node.nil?
+      return list
+    end
+    
+    # Do postorder on left subtree
+    postorder_helper(current_node.left, list)
+    
+    # Do postorder on right subtree
+    postorder_helper(current_node.right, list)
+    
+    # Add the root
+    list << { key: current_node.key, value: current_node.value}
+    
+    return list
+  end
+  
+  # Time Complexity: O(n) where n is the number of nodes
+  # Space Complexity: O(n) where n is the number of nodes
   def height
-    raise NotImplementedError
+    return height_helper(@root, 0, 1)
+  end
+  
+  def height_helper(current_node, max, count)
+    return max if current_node.nil?
+    
+    if count > max
+      max = count
+    end
+    
+    height_helper(current_node.left, max, count + 1)
+    height_helper(current_node.right, max, count + 1)
   end
   
   # Optional Method
   # Time Complexity: 
   # Space Complexity: 
   def bfs
+    raise NotImplementedError
+  end
+  
+  # Time Complexity: 
+  # Space Complexity: 
+  def delete
     raise NotImplementedError
   end
   
