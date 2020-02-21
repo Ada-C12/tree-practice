@@ -63,10 +63,7 @@ class Tree
     inorder_helper(current_node.left, list)
     list << { key: current_node.key, value: current_node.value }
     inorder_helper(current_node.right, list)
-    return list
-      # list << {key: current_node.key, value: current_node.value}
-      # inorder_helper(current_node.left, list)
-    
+    return list 
   end
 
   # Time Complexity: 
@@ -76,10 +73,23 @@ class Tree
   end
 
 
-  # Time Complexity: 
+  # Time Complexity: O(n) call visit on each node exactly once
   # Space Complexity: 
+  # current node, left subtree, right subtree
+    # 1. visit node
+    # 2. traverse left subtree
+    # 3. traverse right subtree
   def preorder
-    raise NotImplementedError
+    return preorder_helper(@root, [])
+
+  end
+
+  def preorder_helper(current_node, list)
+   
+    return list if current_node.nil?
+    list <<  { key: current_node.key, value: current_node.value}
+    preorder_helper(current_node.left, list)
+    preorder_helper(current_node.right, list)
   end
 
   # Time Complexity: 
