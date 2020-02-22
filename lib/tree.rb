@@ -54,10 +54,10 @@ class Tree
     return current_node
   end
   
-  # Time Complexity: 
+  # Time Complexity: O(log n)
   # Space Complexity: 
   def find(key)
-    @root = find_helper(@root, key)
+    find_helper(@root, key)
   end
   
   def find_helper(current_node, key)
@@ -67,9 +67,9 @@ class Tree
       return current_node.value
     else
       if key < current_node.key
-        current_node.left = find_helper(current_node.left, key)
+        return find_helper(current_node.left, key)
       else
-        current_node.right = find_helper(current_node.right, key)
+        return find_helper(current_node.right, key)
       end
     end
   end
