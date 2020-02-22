@@ -19,7 +19,7 @@ class Tree
   # Time Complexity: 
   # Space Complexity: 
   def add(key, value)
-    add_helper(@root, key, value)
+    @root =  add_helper(@root, key, value)
   end
 
   def add_helper(current, key, value)
@@ -67,19 +67,44 @@ class Tree
   # Time Complexity: 
   # Space Complexity: 
   def preorder
-    raise NotImplementedError
+    return preorder_helper(@root, [])
+  end
+
+  def preorder_helper(current, list)
+    return list if current.nil?
+    list << {key: current.key, value: current.value}
+    preorder_helper(current.left, list)
+    preorder_helper(current.right, list)
+    return list
   end
   
   # Time Complexity: 
   # Space Complexity: 
   def postorder
-    raise NotImplementedError
+    return postorder_helper(@root, [])
+  end
+
+  def postorder_helper(current, list)
+    return list if current.nil?
+    postorder_helper(current.left, list)
+    postorder_helper(current.right, list)
+    list << {key: current.key, value: current.value}
+    return list
   end
   
   # Time Complexity: 
   # Space Complexity: 
   def height
-    raise NotImplementedError
+    return height_helper(@root, 0, 1)
+  end
+
+  def height_helper(current, max, count)
+    return max if current.nil?
+
+    max = count if count > max
+    height_helper(current.left, max, (count + 1))
+    height_helper(current.right, max, (count + 1))
+    
   end
   
   # Optional Method
