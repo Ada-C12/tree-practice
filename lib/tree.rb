@@ -12,12 +12,28 @@ end
 
 class Tree
   attr_reader :root
+
   def initialize
     @root = nil
   end
 
   # Time Complexity: O(log n)
   # Space Complexity: O(n)
+  def add_helper(current_node, key, value)
+    return TreeNode.new(key, value) if current_node.nil?
+
+    if key < current_node.key
+      current_node.left = add_helper(current_node.left, key, value)
+    else
+      current_node.right = add_helper(current_node.right, key, value)
+    end
+    return current_node
+  end
+
+  def add(key, value)
+    @root = add_helper(@root, key, value)
+  end
+
   # def add(key, value)
   #   if @root.nil?
   #     @root = TreeNode.new(key, value)
@@ -43,21 +59,6 @@ class Tree
   #     end
   #   end
   # end
-
-  def add_helper(current_node, key, value)
-    return TreeNode.new(key, value) if current_node.nil?
-
-    if key < current_node.key
-      current_node.left = add_helper(current_node.left, key, value)
-    else
-      current_node.right = add_helper(current_node.right, key, value)
-    end
-    return current_node
-  end
-
-  def add(key, value)
-    @root = add_helper(@root, key, value)
-  end
 
   # Time Complexity: O(log n)
   # Space Complexity: O(n)
@@ -97,8 +98,8 @@ class Tree
     return inorder_helper(@root, [])
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def preorder_helper(current_node, list)
     return list if current_node.nil?
 
@@ -118,8 +119,8 @@ class Tree
     return preorder_helper(@root, [])
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def postorder_helper(current_node, list)
     return list if current_node.nil?
 
@@ -139,16 +140,35 @@ class Tree
     return postorder_helper(@root, [])
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
-  def height
-    raise NotImplementedError
+  # Time Complexity: O(n)
+  # Space Complexity: O(log n)
+  def height_helper(current_node)
+    if current_node.nil?
+      return 0
+    else
+      left_height = height_helper(current_node.left)
+      right_height = height_helper(current_node.right)
+
+      if left_height > right_height
+        return left_height + 1
+      else
+        return right_height + 1
+      end
+    end
   end
 
-  # Optional Method
+  def height
+    return height_helper(@root)
+  end
+
+  # Optional Methods
   # Time Complexity: 
   # Space Complexity: 
   def bfs
+    raise NotImplementedError
+  end
+
+  def delete
     raise NotImplementedError
   end
 
