@@ -141,7 +141,7 @@ class Tree
   end
 
   # Time Complexity: O(n)
-  # Space Complexity: O(log n)
+  # Space Complexity: O(h) - h is height of tree
   def height_helper(current_node)
     if current_node.nil?
       return 0
@@ -162,10 +162,30 @@ class Tree
   end
 
   # Optional Methods
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(w) - w is width of tree
   def bfs
-    raise NotImplementedError
+    result = []
+
+    return result if @root.nil?
+
+    queue = [@root]
+
+    while !queue.empty?
+      node = queue.shift
+
+      result << { key: node.key, value: node.value }
+
+      if node.left
+        queue << node.left
+      end
+
+      if node.right
+        queue << node.right
+      end
+    end
+
+    return result
   end
 
   def delete
