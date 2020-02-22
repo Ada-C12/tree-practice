@@ -41,7 +41,7 @@ class Tree
   end
   
   # Time Complexity: O(log n)
-  # Space Complexity: 
+  # Space Complexity: O(n)
   def find_helper(current_node, key)
     return if current_node.nil?
     
@@ -84,8 +84,20 @@ class Tree
   
   # Time Complexity: 
   # Space Complexity: 
+  def preorder_helper(current_node, list)
+    return list if current_node.nil?
+    # middle node
+    list << { key: current_node.key, value: current_node.value }
+    # left side
+    preorder_helper(current_node.left, list)
+    # right side
+    preorder_helper(current_node.right, list)
+    
+    return list
+  end
+  
   def preorder
-    raise NotImplementedError
+    return preorder_helper(@root, [])
   end
   
   # Time Complexity: 
