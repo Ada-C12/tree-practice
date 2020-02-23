@@ -111,6 +111,12 @@ describe Tree do
       expect(tree_with_nodes.find(25)).must_equal "Kari"
     end
 
+    it "can delete a node with no children" do
+      tree_with_nodes.delete(1)
+
+      expect(tree_with_nodes.find(1)).must_be_nil
+    end
+
     it "can delete a node with two children" do
       tree_with_nodes.add(12, "Ringo")
 
