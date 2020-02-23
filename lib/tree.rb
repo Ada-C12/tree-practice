@@ -75,7 +75,7 @@ class Tree
 
     else
       # recurse: until empty spot found for newNode
-      if newNode.key < currNode.key
+      if newNode.key <= currNode.key
         currNode.left = add_recursion_helper(currNode.left, newNode)
       else
         currNode.right = add_recursion_helper(currNode.right, newNode)
@@ -86,18 +86,55 @@ class Tree
     end
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(log n)
+  # Space Complexity: O(log n)
   def find(key)
-    return false if !root
-    
-    find_recursion
+    # if node with key exists, return that node's value, else return nil
+    if root.nil?
+      return nil
+    else
+      return find_recursion_helper(root, key)
+    end
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
-  def inorder
-    raise NotImplementedError
+  def find_recursion_helper(currNode, key)
+    if currNode.nil?
+      return nil
+    else
+      if key == currNode.key
+        return currNode.value
+      elsif  key < currNode.key
+        return find_recursion_helper(currNode.left, key)
+      else
+        return find_recursion_helper(currNode.right, key)
+      end
+    end
+  end
+
+  # Time Complexity: O(n)
+  # Space Complexity: O(log n)
+  def inorder 
+    return inorder_helper(root, [])
+  end
+
+  def inorder_helper(currNode, list)
+
+    if currNode.nil?
+      # base case
+      return list
+
+    else
+      # recurse
+      # in order goes from left -> parent -> right
+      inorder_helper(currNode.left, list)
+    
+      list << { key: currNode.key, value: currNode.value }
+
+      inorder_helper(currNode.right, list)
+
+      return list
+    end
+
   end
 
   # Time Complexity: 
@@ -125,23 +162,21 @@ class Tree
     raise NotImplementedError
   end
 
+  # Optional Method
+  # Time Complexity: 
+  # Space Complexity: 
+  # also need to add tests for this method
+  def delete(value)
+    # deletes just this node, leave children behind
+    raise NotImplementedError
+  end
+
   # Useful for printing
   def to_s
-    return "#{self.inorder}"
+    # return "#{self.inorder}"
+    puts "IN ORDER = #{self.inorder()}"
+    puts "PRE ORDER = #{self.preorder()}"
+    puts "POST ORDER = #{self.postorder()}"
   end
 
-  def inorder 
-    return inorder_helper(root, [])
-  end
-
-  def inorder_helper(currNode, list)
-    return list if currNode.nil?
-
-    inorder_helper(currNode.left, list)
-    list << { key: currNode.key, value: currNode.value }
-
-    inorder_helper(currNode.right, list)
-
-    return list
-  end
 end
