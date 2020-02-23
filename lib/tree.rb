@@ -1,6 +1,6 @@
 class TreeNode
-  attr_reader :key, :value
-  attr_accessor :left, :right
+  # attr_reader :key, :value
+  attr_accessor :left, :right, :key, :value
 
   def initialize(key, val)
     @key = key
@@ -33,32 +33,6 @@ class Tree
   def add(key, value)
     @root = add_helper(@root, key, value)
   end
-
-  # def add(key, value)
-  #   if @root.nil?
-  #     @root = TreeNode.new(key, value)
-  #   else
-  #     current = @root
-
-  #     while true
-  #       if key < current.key
-  #         if !current.left.nil?
-  #           current = current.left
-  #         else
-  #           current.left = TreeNode.new(key, value)
-  #           return
-  #         end
-  #       else
-  #         if !current.right.nil?
-  #           current = current.right
-  #         else
-  #           current.right = TreeNode.new(key, value)
-  #           return
-  #         end
-  #       end
-  #     end
-  #   end
-  # end
 
   # Time Complexity: O(log n)
   # Space Complexity: O(n)
@@ -204,12 +178,15 @@ class Tree
     end
   end
 
+  def find_successor(current_node)
+    return current_node if current_node.right.nil?
+
+    find_successor(current_node.right)
+  end
+
   def delete(key)
     parent_node = find_parent_node(@root, key)
-
     return nil if !parent_node
-
-    side = ""
 
     if parent_node.left && (parent_node.left.key == key)
       side = "left"
@@ -223,13 +200,25 @@ class Tree
     if !target_node.left && !target_node.right
       if side == "left"
         parent_node.left = nil
+        return
       else
         parent_node.right = nil
+        return
       end
-      
+
     # If node to be deleted has two children
     elsif target_node.left && target_node.right
-      puts "two kids"
+      successor = find_successor(target_node.left)
+
+      if side == "left"
+        delete(successor.key)
+        parent_node.left.key = successor.key
+        parent_node.left.value = succesor.value
+      else
+        delete(successor.key)
+        parent_node.right.key = successor.key
+        parent_node.right.value = successor.value
+      end
 
     # If node only has one child - copy child to node and delete child
     else
