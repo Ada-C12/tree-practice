@@ -162,8 +162,8 @@ class Tree
     return result
   end
 
-  # Time Complexity:
-  # Space Complexity:
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def find_parent_node(current_node, key)
     return nil if current_node.nil?
 
