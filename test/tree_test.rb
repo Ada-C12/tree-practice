@@ -39,38 +39,36 @@ describe Tree do
     end
 
     it "will return the tree in order" do
-      tree_with_nodes      
-      
-      # expect(tree_with_nodes.inorder).must_equal [{:key=>1, :value=>"Mary"}, {:key=>3, :value=>"Paul"}, 
-      #                                  {:key=>5, :value=>"Peter"}, {:key=>10, :value=>"Karla"}, 
-      #                                  {:key=>15, :value=>"Ada"}, {:key=>25, :value=>"Kari"}]
+      expect(tree_with_nodes.inorder).must_equal [{:key=>1, :value=>"Mary"}, {:key=>3, :value=>"Paul"}, 
+                                       {:key=>5, :value=>"Peter"}, {:key=>10, :value=>"Karla"}, 
+                                       {:key=>15, :value=>"Ada"}, {:key=>25, :value=>"Kari"}]
     end
   end
 
 
-  # describe "preorder" do
-  #   it "will give an empty array for an empty tree" do
-  #     expect(tree.preorder).must_equal []
-  #   end
+  describe "preorder" do
+    it "will give an empty array for an empty tree" do
+      expect(tree.preorder).must_equal []
+    end
 
-  #   it "will return the tree in preorder" do
-  #     expect(tree_with_nodes.preorder).must_equal [{:key=>5, :value=>"Peter"}, {:key=>3, :value=>"Paul"}, 
-  #                                       {:key=>1, :value=>"Mary"}, {:key=>10, :value=>"Karla"}, 
-  #                                       {:key=>15, :value=>"Ada"}, {:key=>25, :value=>"Kari"}]
-  #   end
-  # end
+    it "will return the tree in preorder" do
+      expect(tree_with_nodes.preorder).must_equal [{:key=>5, :value=>"Peter"}, {:key=>3, :value=>"Paul"}, 
+                                        {:key=>1, :value=>"Mary"}, {:key=>10, :value=>"Karla"}, 
+                                        {:key=>15, :value=>"Ada"}, {:key=>25, :value=>"Kari"}]
+    end
+  end
 
-  # describe "postorder" do
-  #   it "will give an empty array for an empty tree" do
-  #     expect(tree.postorder).must_equal []
-  #   end
+  describe "postorder" do
+    it "will give an empty array for an empty tree" do
+      expect(tree.postorder).must_equal []
+    end
 
-  #   it "will return the tree in postorder" do
-  #     expect(tree_with_nodes.postorder).must_equal [{:key=>1, :value=>"Mary"}, {:key=>3, :value=>"Paul"}, 
-  #                                        {:key=>25, :value=>"Kari"}, {:key=>15, :value=>"Ada"}, 
-  #                                        {:key=>10, :value=>"Karla"}, {:key=>5, :value=>"Peter"}]
-  #   end
-  # end
+    it "will return the tree in postorder" do
+      expect(tree_with_nodes.postorder).must_equal [{:key=>1, :value=>"Mary"}, {:key=>3, :value=>"Paul"}, 
+                                         {:key=>25, :value=>"Kari"}, {:key=>15, :value=>"Ada"}, 
+                                         {:key=>10, :value=>"Karla"}, {:key=>5, :value=>"Peter"}]
+    end
+  end
 
   # describe "breadth first search" do
   #   it "will give an empty array for an empty tree" do
