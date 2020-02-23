@@ -33,16 +33,14 @@ class Tree
     return current_node
   end 
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def find(key)
-    return nil if @root == nil? 
+    return nil if @root.nil?
     return find_helper(@root, key)
   end
 
   def find_helper(current_node, key)
-    return nil if current_node.nil?
-
     return current_node.value if current_node.key == key 
 
     if key < current_node.key 
@@ -52,8 +50,10 @@ class Tree
     end 
   end 
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # For traversals: Space required is proportional to height of tree which is equal to the number of nodes in the tree in the worst case (skewed trees)
+  
+  # Time Complexity: O(n)
+  # Space Complexity: O(n) or O(h) because the max # of memory addresses on the stack at the same time is the same as the tree height
   def inorder
     return inorder_helper(@root, [])
   end
@@ -68,23 +68,58 @@ class Tree
     return list
   end 
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def preorder
-    raise NotImplementedError
+    return preorder_helper(@root, [])
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  def preorder_helper(current_node, list)
+    # root, left, right
+    return list if current_node.nil?
+    list << {key: current_node.key, value: current_node.value}
+    preorder_helper(current_node.left, list)
+    preorder_helper(current_node.right, list)
+    return list 
+  end 
+
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def postorder
-    raise NotImplementedError
+    return postorder_helper(@root, [])
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  def postorder_helper(current_node, list)
+    # left, right, root 
+    return list if current_node.nil?
+
+    postorder_helper(current_node.left, list)
+    postorder_helper(current_node.right, list)
+    list << {key: current_node.key, value: current_node.value}
+
+  end 
+
+  # Time Complexity: 0(n)
+  # Space Complexity: O(n)
+  #Height is distance from the best accessible leaf node 
+  #Height of a tree would be equal to max depth of any node in the tree 
   def height
-    raise NotImplementedError
+    return 0 if @root.nil? 
+    return height_helper(@root, 0)
   end
+
+  def height_helper(current_node, max)
+    return max if current_node.nil? 
+
+    #Make a recursive call to find the height of the left subtree 
+    left_height = height_helper(current_node.left, max)
+
+    #Make a recursive call to find the height of the right subtree 
+    right_height = height_helper(current_node.right, max)
+
+    #The height of the tree would be the greater of both of these values plus one
+    return [left_height, right_height].max + 1 
+  end 
 
   # Optional Method
   # Time Complexity: 

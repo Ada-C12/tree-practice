@@ -43,7 +43,7 @@ describe Tree do
   end
 
 
-  xdescribe "preorder" do
+  describe "preorder" do
     it "will give an empty array for an empty tree" do
       expect(tree.preorder).must_equal []
     end
@@ -55,7 +55,7 @@ describe Tree do
     end
   end
 
-  xdescribe "postorder" do
+  describe "postorder" do
     it "will give an empty array for an empty tree" do
       expect(tree.postorder).must_equal []
     end
@@ -79,7 +79,7 @@ describe Tree do
     end
   end
   
-  xdescribe "height" do 
+  describe "height" do 
     it "will return 0 if tree is empty" do 
       expect(tree.height()).must_equal 0
     end
