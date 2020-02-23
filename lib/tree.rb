@@ -2,12 +2,12 @@ class TreeNode
   attr_reader :key, :value
   attr_accessor :left, :right
 
-   def initialize(key, val)
+  def initialize(key, val)
     @key = key
     @value = val
     @left = nil
     @right = nil
-   end
+  end
 end
 
 class Tree
@@ -16,16 +16,82 @@ class Tree
     @root = nil
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(log n)
+  # Space Complexity: O(1)
+  def add_while(key, value)
+    newNode = TreeNode.new(key, value)
+
+    if root.nil?
+      @root = newNode
+    
+    else 
+      # need to find the rightful place for this newNode
+      curr = root
+
+      while curr 
+        if newNode.key <= curr.key 
+          # send to left of curr
+          if curr.left
+            # curr.left already exists, so set new curr to that node, and continue the while loop
+            curr = curr.left
+          else
+            # empty spot, newNode can go there
+            curr.left = newNode
+            return
+          end
+
+        else
+          # send to right of curr
+          if curr.right
+            curr = curr.right 
+          else  
+            curr.right = newNode 
+            return
+          end
+        end
+      end
+    end
+  end
+
+  # Time Complexity: O(log n)
+  # Space Complexity: O(log n) 
   def add(key, value)
-    raise NotImplementedError
+    newNode = TreeNode.new(key, value)
+
+    if root.nil?
+      @root = newNode
+    
+    else 
+      # need to find the rightful place for this newNode
+      add_recursion_helper(root, newNode)
+    end
+  end
+
+  def add_recursion_helper(currNode, newNode)
+    
+    if currNode.nil? 
+      #  base case: nobody is on the currNode spot
+      return newNode 
+
+    else
+      # recurse: until empty spot found for newNode
+      if newNode.key < currNode.key
+        currNode.left = add_recursion_helper(currNode.left, newNode)
+      else
+        currNode.right = add_recursion_helper(currNode.right, newNode)
+      end
+    
+      # since currNode already exists in this spot, needs to leave it intact
+      return currNode
+    end
   end
 
   # Time Complexity: 
   # Space Complexity: 
   def find(key)
-    raise NotImplementedError
+    return false if !root
+    
+    find_recursion
   end
 
   # Time Complexity: 
@@ -62,5 +128,20 @@ class Tree
   # Useful for printing
   def to_s
     return "#{self.inorder}"
+  end
+
+  def inorder 
+    return inorder_helper(root, [])
+  end
+
+  def inorder_helper(currNode, list)
+    return list if currNode.nil?
+
+    inorder_helper(currNode.left, list)
+    list << { key: currNode.key, value: currNode.value }
+
+    inorder_helper(currNode.right, list)
+
+    return list
   end
 end
