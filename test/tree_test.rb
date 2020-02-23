@@ -82,24 +82,24 @@ describe Tree do
   #   end
   # end
   
-  # describe "height" do 
-  #   it "will return 0 if tree is empty" do 
-  #     expect(tree.height()).must_equal 0
-  #   end
+  describe "height" do 
+    it "will return 0 if tree is empty" do 
+      expect(tree.height()).must_equal 0
+    end
 
-  #   it "will return the nuber of nodes in the longest path" do
-  #     expect(tree_with_nodes.height).must_equal 4
-  #     tree_with_nodes.add(60, "sam")
-  #     tree_with_nodes.add(58, "penny")
-  #     tree_with_nodes.add(65, "sam")
-  #     expect(tree_with_nodes.height).must_equal 6
-  #   end
+    it "will return the nuber of nodes in the longest path" do
+      expect(tree_with_nodes.height).must_equal 4
+      tree_with_nodes.add(60, "sam")
+      tree_with_nodes.add(58, "penny")
+      tree_with_nodes.add(65, "sam")
+      expect(tree_with_nodes.height).must_equal 6
+    end
     
-  #   it "will give the correct height of a binary search tree" do
-  #     tree_with_nodes.add(30, "Tatiana")
-  #     expect(tree_with_nodes.height).must_equal 5
-  #   end
-  # end
+    it "will give the correct height of a binary search tree" do
+      tree_with_nodes.add(30, "Tatiana")
+      expect(tree_with_nodes.height).must_equal 5
+    end
+  end
 
   # describe "delete" do
   #   it "can delete a note in the tree" do
