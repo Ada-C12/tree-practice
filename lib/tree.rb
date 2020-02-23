@@ -130,17 +130,14 @@ class Tree
     return height_helper(@root) 
   end
   
-  def height_helper(current_node, left = 0, right = 0)
+  def height_helper(current_node)
     return 0 if current_node.nil?
     
-    height_helper(current_node.left, left += 1)
-    height_helper(current_node.right, right += 1)
+    left = height_helper(current_node.left)
+    right = height_helper(current_node.right)
+
+    my_height = 1 + ( left > right ? left : right)
     
-    if left > right
-      return left
-    else
-      return right
-    end
   end
   
   # Optional Method
