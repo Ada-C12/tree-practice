@@ -164,7 +164,7 @@ class Tree
 
   # Time Complexity: O(n)
   # Space Complexity: O(n)
-  def find_parent_node(current_node, key)
+  def find_parent(current_node, key)
     return nil if current_node.nil?
 
     if current_node.left && (current_node.left.key == key) || current_node.right && (current_node.right.key == key)
@@ -172,9 +172,9 @@ class Tree
     end
 
     if key < current_node.key
-      current_node = find_parent_node(current_node.left, key)
+      current_node = find_parent(current_node.left, key)
     else
-      current_node = find_parent_node(current_node.right, key)
+      current_node = find_parent(current_node.right, key)
     end
   end
 
@@ -185,7 +185,7 @@ class Tree
   end
 
   def delete(key)
-    parent_node = find_parent_node(@root, key)
+    parent_node = find_parent(@root, key)
     return nil if !parent_node
 
     if parent_node.left && (parent_node.left.key == key)
