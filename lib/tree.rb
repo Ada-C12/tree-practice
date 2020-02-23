@@ -65,8 +65,8 @@ class Tree
     end
   end
 
-  # Time Complexity: worst case O(n) since the key may be the last node traversed
-  # Space Complexity: O(n) since we have to keep track of previous operations until we hit a base case
+  # Time Complexity: worst case O(n) since the key sought may be the last node traversed
+  # Space Complexity: O(n) since we have to keep track of previous operations until we hit the base case
   def find(key)
 
     current_node = @root
@@ -87,8 +87,7 @@ class Tree
     # if key sought is lower than current_node.key, move to the left
     if key < current_node.key
       find_helper(current_node.left, key)
-    # if key sought is higher or equal to than current_node.key, move to the right
-    elsif key >= current_node.key
+    else 
       find_helper(curent_node.right, key) 
     end
 
@@ -97,8 +96,10 @@ class Tree
   # Time Complexity: 
   # Space Complexity: 
   def inorder
+    return nil if @root.nil?
+    current_node = @root
     list = []
-    return inorder_helper(@root, list)
+    return inorder_helper(current_node, list)
   end
 
   def inorder_helper(current_node, list)
@@ -114,7 +115,14 @@ class Tree
     # existing code is only adding the last key/value pair 
 
     return list
+
   end 
+
+  # Time Complexity: 
+  # Space Complexity: 
+  def inorder
+    return inorder_helper(@root, [])
+  end
 
   # Time Complexity: 
   # Space Complexity: 
