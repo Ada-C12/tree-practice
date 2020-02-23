@@ -188,8 +188,63 @@ class Tree
     return result
   end
 
-  def delete
-    raise NotImplementedError
+  # Time Complexity:
+  # Space Complexity:
+  def find_parent_node(current_node, key)
+    return nil if current_node.nil?
+
+    if current_node.left && (current_node.left.key == key) || current_node.right && (current_node.right.key == key)
+      return current_node
+    end
+
+    if key < current_node.key
+      current_node = find_parent_node(current_node.left, key)
+    else
+      current_node = find_parent_node(current_node.right, key)
+    end
+  end
+
+  def delete(key)
+    parent_node = find_parent_node(@root, key)
+
+    return nil if !parent_node
+
+    side = ""
+
+    if parent_node.left && (parent_node.left.key == key)
+      side = "left"
+      target_node = parent_node.left
+    else
+      side = "right"
+      target_node = parent_node.right
+    end
+
+    # If node to be deleted is leaf - just remove from tree
+    if !target_node.left && !target_node.right
+      if side == "left"
+        parent_node.left = nil
+      else
+        parent_node.right = nil
+      end
+      
+    # If node to be deleted has two children
+    elsif target_node.left && target_node.right
+      puts "two kids"
+
+    # If node only has one child - copy child to node and delete child
+    else
+      if target_node.left
+        temp = target_node.left
+      else
+        temp = target_node.right
+      end
+
+      if side == "left"
+        parent_node.left = temp
+      else
+        parent_node.right = temp
+      end
+    end
   end
 
   # Useful for printing

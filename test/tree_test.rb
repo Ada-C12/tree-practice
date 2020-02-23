@@ -37,8 +37,8 @@ describe Tree do
 
     it "will return the tree in order" do
       expect(tree_with_nodes.inorder).must_equal [{:key=>1, :value=>"Mary"}, {:key=>3, :value=>"Paul"}, 
-                                      {:key=>5, :value=>"Peter"}, {:key=>10, :value=>"Karla"}, 
-                                      {:key=>15, :value=>"Ada"}, {:key=>25, :value=>"Kari"}]
+                                                  {:key=>5, :value=>"Peter"}, {:key=>10, :value=>"Karla"}, 
+                                                  {:key=>15, :value=>"Ada"}, {:key=>25, :value=>"Kari"}]
     end
   end
 
@@ -50,8 +50,8 @@ describe Tree do
 
     it "will return the tree in preorder" do
       expect(tree_with_nodes.preorder).must_equal [{:key=>5, :value=>"Peter"}, {:key=>3, :value=>"Paul"}, 
-                                        {:key=>1, :value=>"Mary"}, {:key=>10, :value=>"Karla"}, 
-                                        {:key=>15, :value=>"Ada"}, {:key=>25, :value=>"Kari"}]
+                                                  {:key=>1, :value=>"Mary"}, {:key=>10, :value=>"Karla"}, 
+                                                  {:key=>15, :value=>"Ada"}, {:key=>25, :value=>"Kari"}]
     end
   end
 
@@ -99,7 +99,7 @@ describe Tree do
   end
 
   describe "delete" do
-    it "can delete a note in the tree" do
+    it "can delete a node in the tree" do
       # Arrange & Assert
       expect(tree_with_nodes.find(15)).must_equal "Ada"
 
@@ -108,6 +108,17 @@ describe Tree do
 
       # Assert
       expect(tree_with_nodes.find(15)).must_be_nil
+      expect(tree_with_nodes.find(25)).must_equal "Kari"
+    end
+
+    it "can delete a node with two children" do
+      tree_with_nodes.add(12, "Ringo")
+
+      tree_with_nodes.delete(15)
+      
+      expect(tree_with_nodes.find(15)).must_be_nil
+      expect(tree_with_nodes.find(12)).must_equal "Ringo"
+      expect(tree_with_nodes.find(25)).must_equal "Kari"
     end
 
     it "will return nil if the node is not in the tree when it's deleted" do
