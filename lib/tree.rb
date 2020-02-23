@@ -137,22 +137,67 @@ class Tree
 
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(log n)
   def preorder
-    raise NotImplementedError
+    return preorder_helper(root, [])
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  def preorder_helper(currNode, list)
+
+    if currNode.nil?
+      # base case
+      return list
+
+    else
+      # recurse
+      # preorder goes from parent -> left -> right
+      list << { key: currNode.key, value: currNode.value }
+
+      preorder_helper(currNode.left, list)
+    
+      preorder_helper(currNode.right, list)
+
+      return list
+    end
+
+  end
+
+  # Time Complexity: O(n)
+  # Space Complexity: O(log n)
   def postorder
-    raise NotImplementedError
+    return postorder_helper(root, [])
+  end
+
+  def postorder_helper(currNode, list)
+
+    if currNode.nil?
+      # base case
+      return list
+
+    else
+      # recurse
+      # postorder goes from left -> right -> parent
+
+      postorder_helper(currNode.left, list)
+    
+      postorder_helper(currNode.right, list)
+
+      list << { key: currNode.key, value: currNode.value }
+
+      return list
+    end
+
   end
 
   # Time Complexity: 
   # Space Complexity: 
   def height
     raise NotImplementedError
+ 
+
+
+
   end
 
   # Optional Method
@@ -160,6 +205,13 @@ class Tree
   # Space Complexity: 
   def bfs
     raise NotImplementedError
+
+
+
+
+
+
+
   end
 
   # Optional Method
@@ -169,6 +221,13 @@ class Tree
   def delete(value)
     # deletes just this node, leave children behind
     raise NotImplementedError
+
+
+
+
+
+
+
   end
 
   # Useful for printing
