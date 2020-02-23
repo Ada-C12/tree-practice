@@ -189,16 +189,16 @@ class Tree
     return nil if !parent_node
 
     if parent_node.left && (parent_node.left.key == key)
-      side = "left"
+      child = "left"
       target_node = parent_node.left
     else
-      side = "right"
+      child = "right"
       target_node = parent_node.right
     end
 
     # If node to be deleted is leaf - just remove from tree
     if !target_node.left && !target_node.right
-      if side == "left"
+      if child == "left"
         parent_node.left = nil
         return
       else
@@ -209,13 +209,12 @@ class Tree
     # If node to be deleted has two children
     elsif target_node.left && target_node.right
       successor = find_successor(target_node.left)
+      delete(successor.key)
 
-      if side == "left"
-        delete(successor.key)
+      if child == "left"
         parent_node.left.key = successor.key
         parent_node.left.value = succesor.value
       else
-        delete(successor.key)
         parent_node.right.key = successor.key
         parent_node.right.value = successor.value
       end
@@ -228,7 +227,7 @@ class Tree
         temp = target_node.right
       end
 
-      if side == "left"
+      if child == "left"
         parent_node.left = temp
       else
         parent_node.right = temp
