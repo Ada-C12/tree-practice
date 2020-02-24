@@ -158,15 +158,18 @@ class Tree
 
   def height_helper(current_node, height)
 
-    # base cases
+    # base cases: tree is empty or there is no node left or right of current node
     return 0 if @root.nil?
     return height if current_node.nil?
 
-    # recursive cases: traverse nodes adding 1 for each level
+    # recursive cases: there is a node to the left or right
+    # traverse nodes below current
+    # if current has a node below, add 1 to height and check node below that
+    # this code checks height of left side of tree and then adds to total height if right side has more levels
     height_helper(current_node.left, height + 1)
     height_helper(current_node.right, height + 1)
 
-    # no need to compare left height and right height since above code will return the height of the side with the most nodes.
+    # no need to compare left height and right height since above code will return the height of the tallest side
 
   end
 
