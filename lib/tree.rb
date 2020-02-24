@@ -146,10 +146,31 @@ class Tree
     list << { key: current_node.key, value: current_node.value }
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n) since we are checking each node
+  # Space Complexity: Also O(n)
   def height
-    raise NotImplementedError
+
+    return height_helper(@root, 0)
+
+  end
+
+  def height_helper(current_node, height)
+
+    # base cases
+    return 0 if @root.nil?
+    return height if current_node.nil?
+
+    # recursive cases: determine heights of left and right sides of tree
+    left_height = height_helper(current_node.left, height + 1)
+    right_height = height_helper(current_node.right, height + 1)
+
+    # return the height of whichever side is higher
+    if left_height > right_height
+      return left_height
+    else
+      return right_height
+    end
+
   end
 
   # Optional Method
