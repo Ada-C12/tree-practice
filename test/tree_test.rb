@@ -49,6 +49,7 @@ describe Tree do
     end
 
     it "will return the tree in preorder" do
+      # puts tree_with_nodes
       expect(tree_with_nodes.preorder).must_equal [{:key=>5, :value=>"Peter"}, {:key=>3, :value=>"Paul"}, 
                                         {:key=>1, :value=>"Mary"}, {:key=>10, :value=>"Karla"}, 
                                         {:key=>15, :value=>"Ada"}, {:key=>25, :value=>"Kari"}]
@@ -117,6 +118,38 @@ describe Tree do
       # Assert
       expect(answer).must_be_nil
       expect(tree_with_nodes.find(47)).must_be_nil
+    end
+
+    it "can delete a node in the tree, and leave its 1 child alone" do
+      # Arrange & Assert
+      expect(tree_with_nodes.find(3)).must_equal "Paul"
+
+      # Act
+      tree_with_nodes.delete(3)
+
+      # Assert
+      expect(tree_with_nodes.find(3)).must_be_nil
+      #### Node 1/Mary, which is child of the deleted 3/Paul, should still be in the tree
+      expect(tree_with_nodes.find(1)).must_equal "Mary"
+    end
+
+    it "can delete a node in the tree, and leave all children in both L/R subtrees alone" do
+      # Arrange & Assert
+      puts "\n\nstarting with... "
+      puts tree_with_nodes
+      expect(tree_with_nodes.find(5)).must_equal "Peter"
+
+      # Act
+      tree_with_nodes.delete(5)
+
+      # Assert
+      expect(tree_with_nodes.find(5)).must_be_nil
+      #### All other 5 nodes should still be in there
+      expect(tree_with_nodes.find(1)).must_equal "Mary"
+      expect(tree_with_nodes.find(3)).must_equal "Paul"
+      expect(tree_with_nodes.find(10)).must_equal "Karla"
+      expect(tree_with_nodes.find(15)).must_equal "Ada"
+      expect(tree_with_nodes.find(25)).must_equal "Kari"
     end
   end
 end
