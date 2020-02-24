@@ -40,7 +40,7 @@ class Tree
     return nil if current_node.nil?
     
     if current_node.key == search
-      return current_node.value
+      return current_node
     elsif current_node.key > search
       find_helper(current_node.left, search)
     else
@@ -49,7 +49,8 @@ class Tree
   end
   
   def find(key)
-    return find_helper(@root, key)
+    found = find_helper(@root, key)
+    return found.value if found
   end
 
   # Time Complexity: O(n) where n is number of nodes in tree
@@ -136,53 +137,31 @@ class Tree
     return (bfs_helper(root, [], 0)).flatten
   end
 
-  
-
-  def find_previous_node(current_node, previous_node, search)
-    # return nil if current_node.nil?
-    
-    # if current_node.key == search
-    #   return previous_node
-    # elsif current_node.key > search
-    #   find_helper(current_node.left, current_node, search)
-    # else
-    #   find_helper(current_node.right, current_node, search)
-    # end
+  # Optional Method
+  # Time Complexity: O(n) where n is number of nodes in tree
+  # Space Complexity: O(n) where n is number of nodes in tree
+  def two_child_delete(node)
+    # TODO
   end
-
-  def delete_helper(previous_node, node)
-    # if node.left.nil? && node.right.nil?
-    #   if previous_node.left == node 
-    #     previous_node.left = nil
-    #   else
-    #     previous_node.right = nil
-    #   end
-    # elsif previous_node.left.nil? || previous_node.right.nil?
-    #   if previous_node.left == node 
-    #     previous_node.left = node.left
-    #   else
-    #     previous_node.right = node.right
-    #   end
-    # else
-    #   current = node.right
-    #   until current.nil? do
-        
-    #   end
-    
-    # end
+  
+  def delete_helper(node)
+    if node.left.nil? && node.right.nil?
+      node = nil
+    elsif node.left && node.right.nil?
+      node = node.left
+    elsif node.left.nil? && node.right
+      node = node.right
+    else
+      node = two_child_delete(node)
+    end
+    return node
   end
 
   def delete(key)
-    # previous_node = find_previous_node(@root, nil, key)
-    # if previous_node.nil?  
-    #   return nil
-    # elsif previous_node.right == key
-    #   delete_node = previous_node.right
-    # else
-    #   delete_node = previous_node.left
-    # end
-    # delete_helper(previous_node, delete_node)
+    node = find_helper(@root, key)
+    delete_helper(node) if node
   end
+
 
   # Useful for printing
   def to_s

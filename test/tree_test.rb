@@ -103,25 +103,25 @@ describe Tree do
     end
   end
 
-  # describe "delete" do
-  #   it "can delete a note in the tree" do
-  #     # Arrange & Assert
-  #     expect(tree_with_nodes.find(15)).must_equal "Ada"
+  describe "delete" do
+    it "can delete a note in the tree" do
+      # Arrange & Assert
+      expect(tree_with_nodes.find(15)).must_equal "Ada"
 
-  #     # Act
-  #     tree_with_nodes.delete(15)
+      # Act
+      tree_with_nodes.delete(15)
 
-  #     # Assert
-  #     expect(tree_with_nodes.find(15)).must_be_nil
-  #   end
+      # Assert
+      expect(tree_with_nodes.find(15)).must_be_nil
+    end
 
-  #   it "will return nil if the node is not in the tree when it's deleted" do
-  #     # Arrange & Act
-  #     answer = tree_with_nodes.delete(47)
+    it "will return nil if the node is not in the tree when it's deleted" do
+    #   # Arrange & Act
+    #   answer = tree_with_nodes.delete(47)
 
-  #     # Assert
-  #     expect(answer).must_be_nil
-  #     expect(tree_with_nodes.find(47)).must_be_nil
-  #   end
-  # end
+    #   # Assert
+    #   expect(answer).must_be_nil
+    #   expect(tree_with_nodes.find(47)).must_be_nil
+    end
+  end
 end
