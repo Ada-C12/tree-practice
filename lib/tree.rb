@@ -97,7 +97,7 @@ class Tree
     return 0 if @root.nil?
     return [height_helper(@root.left), height_helper(@root.right)].max + 1
   end
-
+  
   def height_helper(node)
     return 0 if node.nil?
     return 1 + [height_helper(node.left), height_helper(node.right)].max
@@ -124,23 +124,26 @@ class Tree
   # Time Complexity: O(log n)
   # Space Complexity: O(1)
   def delete(key)
-    delete_helper(@root, key)
+    if find(key)
+      @root = delete_helper(@root, key)
+    else
+      return nil
+    end 
   end 
-
+  
   def delete_helper(curr_node, key)
     return nil if curr_node.nil?
     if key < curr_node.key
-      delete_helper(curr_node.left, key)
+      curr_node.left = delete_helper(curr_node.left, key)
     elsif key > curr_node.key
-      delete_helper(curr_node.right, key)
+      curr_node.right = delete_helper(curr_node.right, key)
     else #found a match
       if curr_node.left.nil? && curr_node.right.nil? 
-        curr_node = nil
-        puts "curr node is #{curr_node}"
+        return 
       elsif curr_node.left.nil?
-        curr_node = curr_node.right
+        return curr_node.right
       elsif curr_node.right.nil?
-        curr_node = curr_node.left
+        return curr_node.left
       else
         temp = curr_node.right
         while temp.left
@@ -151,7 +154,7 @@ class Tree
       end 
     end 
   end 
-
+  
   # Useful for printing
   def to_s
     return "#{self.inorder}"
