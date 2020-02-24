@@ -77,7 +77,6 @@ class Tree
     else
       find_helper(current_node.right, key)
     end
-    # return current_node
   end
   
   def find(key)
@@ -123,24 +122,49 @@ class Tree
     postorder_helper(@root, [])
   end
   
-  # Time Complexity:
-  # Space Complexity:
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def measuring_stick(current_node, height)
+    return height if current_node.nil?
+    measuring_stick(current_node.left, height + 1)
+    measuring_stick(current_node.right, height + 1)
   end
+  
   def height
     return 0 if @root.nil?
-    measuring_stick(@root, 1)
+    measuring_stick(@root, 0)
   end
   
   # Optional Method
-  # Time Complexity:
-  # Space Complexity:
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
+  def bfs_helper(current_node, list)
+    return list if current_node.nil?
+    list << {key: current_node.left.key, value: current_node.left.value} if !current_node.left.nil?
+    list << {key: current_node.right.key, value: current_node.right.value} if !current_node.right.nil?
+    bfs_helper(current_node.left, list)
+    bfs_helper(current_node.right, list)
+  end
+  
   def bfs
-    raise NotImplementedError
+    return [] if @root.nil?
+    bfs_helper(@root, [{key: @root.key, value: @root.value}])
   end
   
   # Useful for printing
   def to_s
     return "#{self.inorder}"
   end
+  
+  
+end
+def delete(value)
+  return nil if @root.nil?
+  return nil if @root.left.nil? && @root.right.nil?
+  
+  # find the node whose left or right == node with sought value
+  
+  # figure out key of that (next) node
+  
+  # reroute current node's left or right to that node's child(ren), first left then right
 end
