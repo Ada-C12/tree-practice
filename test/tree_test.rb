@@ -86,12 +86,12 @@ describe Tree do
     end
   end
   
-  xdescribe "height" do 
+  describe "height" do 
     it "will return 0 if tree is empty" do 
       expect(tree.height()).must_equal 0
     end
 
-    it "will return the nuber of nodes in the longest path" do
+    it "will return the number of nodes in the longest path" do
       expect(tree_with_nodes.height).must_equal 4
       tree_with_nodes.add(60, "sam")
       tree_with_nodes.add(58, "penny")
