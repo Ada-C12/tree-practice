@@ -104,17 +104,9 @@ class Tree
     list << { key: current_node.key, value: current_node.value }
     inorder_helper(current_node.right, list)
 
-    # existing code is only adding the last key/value pair ... WHY? 
-
     return list
 
   end 
-
-  # Time Complexity: 
-  # Space Complexity: 
-  def inorder
-    return inorder_helper(@root, [])
-  end
 
   # Time Complexity: 
   # Space Complexity: 
