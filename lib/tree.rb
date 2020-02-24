@@ -121,32 +121,32 @@ class Tree
     return list 
   end
   
+  # Time Complexity: O(log n)
+  # Space Complexity: O(1)
   def delete(key)
-    @root = delete_helper(@root, key)
+    delete_helper(@root, key)
   end 
 
   def delete_helper(curr_node, key)
     return nil if curr_node.nil?
     if key < curr_node.key
-      curr_node.left = delete_helper(curr_node.left, key)
-      return curr_node
+      delete_helper(curr_node.left, key)
     elsif key > curr_node.key
-      curr_node.right = delete_helper(curr_node.right, key)
-      return curr_node
-    else 
+      delete_helper(curr_node.right, key)
+    else #found a match
       if curr_node.left.nil? && curr_node.right.nil? 
-        return
+        curr_node = nil
+        puts "curr node is #{curr_node}"
       elsif curr_node.left.nil?
-        return curr_node.right
+        curr_node = curr_node.right
       elsif curr_node.right.nil?
-        return curr_node.left
+        curr_node = curr_node.left
       else
         temp = curr_node.right
         while temp.left
           temp = temp.left
         end 
-        curr_node.key = temp.key
-        curr_node.value = temp.value
+        curr_node = temp
         curr_node.right = delete_helper(curr_node.right, temp.key)
       end 
     end 
