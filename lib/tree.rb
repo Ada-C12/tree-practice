@@ -1,5 +1,3 @@
-require 'awesome_print'
-
 class TreeNode
   attr_reader :key, :value
   attr_accessor :left, :right
@@ -125,6 +123,8 @@ class Tree
   # Space Complexity: O(n) where n is number of nodes in tree
   def bfs_helper(node, list, level)
     return list if node.nil?
+    
+    # creating array of arrays for each level in tree
     list[level] = [] if list[level].nil?
     list[level] << {key: node.key, value: node.value}
 
