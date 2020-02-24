@@ -109,8 +109,8 @@ class Tree
 
   end 
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n) because we need to traverse every node
+  # Space Complexity: also O(n) because we need to keep track of each stack call
   def preorder
     return preorder_helper(@root, [])
   end
@@ -125,13 +125,13 @@ class Tree
     list << { key: current_node.key, value: current_node.value }
     preorder_helper(current_node.left, list)
     preorder_helper(current_node.right, list)
-    
+
   end
 
   # Time Complexity: 
   # Space Complexity: 
   def postorder
-    raise NotImplementedError
+
   end
 
   # Time Complexity: 
