@@ -128,10 +128,22 @@ class Tree
 
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n) because we need to traverse every node
+  # Space Complexity: also O(n) because we need to keep track of each stack call
   def postorder
+    return postorder_helper(@root, [])
+  end
 
+  def postorder_helper(current_node, list)
+    # traversals for postorder: left-right-root
+
+    # base case
+    return list if current_node.nil?
+
+    # recursive cases
+    postorder_helper(current_node.left, list)
+    postorder_helper(current_node.right, list)
+    list << { key: current_node.key, value: current_node.value }
   end
 
   # Time Complexity: 
