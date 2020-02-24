@@ -55,7 +55,7 @@ describe Tree do
         end
       end
       
-      xdescribe "postorder" do
+      describe "postorder" do
         it "will give an empty array for an empty tree" do
           expect(tree.postorder).must_equal []
         end
@@ -79,12 +79,12 @@ describe Tree do
             end
           end
           
-          xdescribe "height" do 
+          describe "height" do 
             it "will return 0 if tree is empty" do 
               expect(tree.height()).must_equal 0
             end
             
-            it "will return the nuber of nodes in the longest path" do
+            it "will return the number of nodes in the longest path" do
               expect(tree_with_nodes.height).must_equal 4
               tree_with_nodes.add(60, "sam")
               tree_with_nodes.add(58, "penny")
@@ -98,8 +98,8 @@ describe Tree do
             end
           end
           
-          xdescribe "delete" do
-            it "can delete a note in the tree" do
+          describe "delete" do
+            it "can delete a node in the tree" do
               # Arrange & Assert
               expect(tree_with_nodes.find(15)).must_equal "Ada"
               

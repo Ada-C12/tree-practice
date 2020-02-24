@@ -28,8 +28,8 @@ class Tree
     return current_node
   end
   
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(log n)
+  # Space Complexity: O(log n)
   def add(key, value)
     new_node = TreeNode.new(key,value)
     
@@ -40,7 +40,7 @@ class Tree
     end
   end
   
-  # Time Complexity: O(log n)
+  # Time Complexity: Best: O(log n), Worst: O(n)
   # Space Complexity: O(n)
   def find_helper(current_node, key)
     return if current_node.nil?
@@ -65,8 +65,8 @@ class Tree
     end 
   end
   
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def inorder_helper(current_node, list)
     return list if current_node.nil?
     # left side
@@ -82,8 +82,8 @@ class Tree
     return inorder_helper(@root, [])
   end
   
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def preorder_helper(current_node, list)
     return list if current_node.nil?
     # middle node
@@ -100,16 +100,47 @@ class Tree
     return preorder_helper(@root, [])
   end
   
-  # Time Complexity: 
-  # Space Complexity: 
-  def postorder
-    raise NotImplementedError
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
+  def postorder_helper(current_node, list)
+    return list if current_node.nil?
+    # left side
+    postorder_helper(current_node.left, list)
+    # right side
+    postorder_helper(current_node.right, list)
+    # middle node
+    list << { key: current_node.key, value: current_node.value }
+    
+    return list
   end
   
-  # Time Complexity: 
-  # Space Complexity: 
+  def postorder
+    return postorder_helper(@root, [])
+  end
+  
+  # Time Complexity: O(n)
+  # Space Complexity:O(n)
+  def height_helper(current_node)
+    if current_node.nil?
+      return 0
+    else
+      left = height_helper(current_node.left)
+      right = height_helper(current_node.right)
+      
+      if (left > right)
+        return left + 1
+      else
+        return right + 1
+      end
+    end
+  end
+  
   def height
-    raise NotImplementedError
+    if @root.nil?
+      return 0 
+    else
+      height_helper(@root)
+    end
   end
   
   # Optional Method
