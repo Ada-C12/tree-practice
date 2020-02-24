@@ -83,10 +83,21 @@ class Tree
   end
 
   # Optional Method
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n) 
+  # Space Complexity: O(n)
   def bfs
-    raise NotImplementedError
+    return [] unless @root
+    q = [@root]
+    out = []
+
+    until q.empty? do
+      current = q.shift
+      out << { key: current.key, value: current.value }
+      q << current.left if current.left
+      q << current.right if current.right
+    end
+
+    return out
   end
 
   # Useful for printing
