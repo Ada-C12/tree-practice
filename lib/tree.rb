@@ -16,10 +16,7 @@ class Tree
     @root = nil
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
-
-  # the loop way
+  # # the loop way
   # def add(key, value)
   #   if @root.nil?
   #     @root = TreeNode.new(key, value)
@@ -46,6 +43,9 @@ class Tree
   #   end 
   # end
 
+  # Time Complexity for recursive: O(log n) for a well-balanced tree because with each call we are dividing the number of nodes we need to traverse by about one half. The more unbalanced the tree is, the closer the big O will be to O(n) since there's no "other side of the tree" to discard. 
+  # Space Complexity for rescursive: same as the time complexity? 
+
   # the recursive way
   def add(key, value)
     @root = add_helper(@root, key, value)
@@ -63,43 +63,35 @@ class Tree
     else
       current_node.right = add_helper(current_node.right, key, value)
     end
+    return current_node
   end
 
-  # Time Complexity: worst case O(n) since the key sought may be the last node traversed
-  # Space Complexity: O(n) since we have to keep track of previous operations until we hit the base case
+  # Time Complexity: ranges from O(log n) for a well-balanced tree to O(n) for a totally unbalanced tree
+  # Space Complexity: same as time complexity since we have to keep track of previous operations until we hit the base case
   def find(key)
-
-    current_node = @root
-
-    return nil if current_node.nil?
-    return current_node.value if current_node.key == key
-
-    find_helper(current_node, key)
-
+    find_helper(@root, key)
   end
 
   # find helper
   def find_helper(current_node, key)
     
-    # base case
+    # base cases
+    return nil if current_node.nil?
     return current_node.value if current_node.key == key
 
     # if key sought is lower than current_node.key, move to the left
     if key < current_node.key
       find_helper(current_node.left, key)
     else 
-      find_helper(curent_node.right, key) 
+      find_helper(current_node.right, key) 
     end
 
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n) because we need to traverse every node
+  # Space Complexity: also O(n) because we need to keep track of each stack call
   def inorder
-    return nil if @root.nil?
-    current_node = @root
-    list = []
-    return inorder_helper(current_node, list)
+    return inorder_helper(@root, [])
   end
 
   def inorder_helper(current_node, list)
@@ -112,7 +104,7 @@ class Tree
     list << { key: current_node.key, value: current_node.value }
     inorder_helper(current_node.right, list)
 
-    # existing code is only adding the last key/value pair 
+    # existing code is only adding the last key/value pair ... WHY? 
 
     return list
 
