@@ -230,14 +230,38 @@ class Tree
   # Time Complexity: 
   # Space Complexity: 
   def bfs
-    raise NotImplementedError
+    return [] if !root
 
+    listOfNodes = [root]
+    answer = [{key: root.key, value: root.value} ]
+    currIndex = 0
 
+    while listOfNodes[currIndex]
+      puts "\nlist is currenty... "
+      printNodesInList(listOfNodes)
 
+      currNode = listOfNodes[currIndex]
+      puts "looking at listOfNodes: #{listOfNodes}"
+      if currNode.left
+        listOfNodes << currNode.left 
+        answer << {key: currNode.left.key, value: currNode.left.value} 
+      end
+      if currNode.right
+        listOfNodes << currNode.right
+        answer << {key: currNode.right.key, value: currNode.right.value} 
+      end
+      currIndex += 1
+    end
+    
+    return answer
+  end
 
-
-
-
+  def printNodesInList(list)
+    currIndex = 0
+    while list[currIndex]
+      puts "\t#{list[currIndex].key}/#{list[currIndex].value}"
+      currIndex += 1
+    end
   end
 
   # Optional Method, IDK, i think mine is unnecessarily complicated
