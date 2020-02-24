@@ -28,7 +28,6 @@ class Tree
     else
       current_node.right = add_helper(current_node.right, key, value)
     end
-
     return current_node
   end
   
@@ -52,13 +51,13 @@ class Tree
   end
   
   def find(key)
-    return nil if @root.nil?
     return find_helper(@root, key)
   end
 
   # Time Complexity: O(n) where n is number of nodes in tree
   # Space Complexity: O(n) where n is number of nodes in tree
-  # return array of all nodes in order 
+  # return array of all nodes in order
+  # when? if you need to print all the nodes of a tree in order 
   def inorder_helper(current_node, list)
     return list if current_node.nil?
 
@@ -75,6 +74,7 @@ class Tree
 
   # Time Complexity: O(n) where n is number of nodes in tree
   # Space Complexity: O(n) where n is number of nodes in tree
+  # when? if you need to save a tree data structure to disk, or send it across the network and maintain the structure
   def preorder_helper(current_node, list)
     return list if current_node.nil?
 
@@ -91,6 +91,7 @@ class Tree
 
   # Time Complexity: O(n) where n is number of nodes in tree
   # Space Complexity: O(n) where n is number of nodes in tree
+  # when? if you need to delete all the nodes in BST
   def postorder_helper(current_node, list)
     return list if current_node.nil?
 
@@ -116,15 +117,29 @@ class Tree
   end
   
   def height
-    return 0 if @root.nil?
-    return height_helper(@root, 1, 1)
+    return height_helper(@root, 1, 0)
   end
 
   # Optional Method
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n) where n is number of nodes in tree
+  # Space Complexity: O(n) where n is number of nodes in tree
+  def bfs_helper(node, list, level)
+    return list if node.nil?
+    list[level] = [] if list[level].nil?
+    list[level] << {key: node.key, value: node.value}
+
+    bfs_helper(node.left, list, level + 1)
+    bfs_helper(node.right, list, level + 1)
+  end
+  
   def bfs
-    raise NotImplementedError
+    return (bfs_helper(root, [], 0)).flatten
+  end
+
+  
+  
+  def delete
+  # use post-order - easier to delete
   end
 
   # Useful for printing
