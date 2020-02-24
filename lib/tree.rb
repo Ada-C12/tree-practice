@@ -150,7 +150,9 @@ class Tree
   # Space Complexity: Also O(n)
   def height
 
-    return height_helper(@root, 0)
+    # start counting height at 0
+    height = 0 
+    return height_helper(@root, height)
 
   end
 
@@ -160,16 +162,11 @@ class Tree
     return 0 if @root.nil?
     return height if current_node.nil?
 
-    # recursive cases: determine heights of left and right sides of tree
-    left_height = height_helper(current_node.left, height + 1)
-    right_height = height_helper(current_node.right, height + 1)
+    # recursive cases: traverse nodes adding 1 for each level
+    height_helper(current_node.left, height + 1)
+    height_helper(current_node.right, height + 1)
 
-    # return the height of whichever side is higher
-    if left_height > right_height
-      return left_height
-    else
-      return right_height
-    end
+    # no need to compare left height and right height since above code will return the height of the side with the most nodes.
 
   end
 
