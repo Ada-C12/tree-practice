@@ -121,8 +121,10 @@ class Tree
     return list 
   end
   
-  # Time Complexity: O(log n)
+  # Time Complexity: Average O(log n), worst case O(n)
   # Space Complexity: O(1)
+  # Not happy with the time efficiency of this solution, but I couldn't find a way to merge search and assigning more effectively than just calling find from within delete.
+
   def delete(key)
     if find(key)
       @root = delete_helper(@root, key)
