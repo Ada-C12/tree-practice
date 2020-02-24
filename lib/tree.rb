@@ -43,7 +43,7 @@ class Tree
   #   end 
   # end
 
-  # Time Complexity for recursive: O(log n) for a well-balanced tree because with each call we are dividing the number of nodes we need to traverse by about one half. The more unbalanced the tree is, the closer the big O will be to O(n) since there's no "other side of the tree" to discard. 
+  # Time Complexity for recursive: O(log n) for a well-balanced tree because with each call we are dividing the number of nodes we need to traverse by (about) one half. The more unbalanced the tree is, the closer the big O will be to O(n) since there's no "other side of the tree" to discard. 
   # Space Complexity for rescursive: same as the time complexity? 
 
   # the recursive way
@@ -95,6 +95,7 @@ class Tree
   end
 
   def inorder_helper(current_node, list)
+    # traversals for inorder: left-root-right (root)
 
     # base case
     return list if current_node.nil?
@@ -111,7 +112,20 @@ class Tree
   # Time Complexity: 
   # Space Complexity: 
   def preorder
-    raise NotImplementedError
+    return preorder_helper(@root, [])
+  end
+
+  def preorder_helper(current_node, list)
+    # traversals for preorder: root-left-right
+
+    # base case
+    return list if current_node.nil?
+
+    # recursive cases
+    list << { key: current_node.key, value: current_node.value }
+    preorder_helper(current_node.left, list)
+    preorder_helper(current_node.right, list)
+    
   end
 
   # Time Complexity: 
