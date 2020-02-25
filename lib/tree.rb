@@ -55,7 +55,7 @@ class Tree
   end
   
   # Time Complexity: O(log n)
-  # Space Complexity: N/A
+  # Space Complexity: O(1)
   def find(key)
     find_helper(@root, key)
   end
@@ -125,7 +125,7 @@ class Tree
   end
   
   # Time Complexity: O(n)
-  # Space Complexity: N/A
+  # Space Complexity: O(1)
   def height
     return height_helper(@root) 
   end
