@@ -118,5 +118,18 @@ describe Tree do
       expect(answer).must_be_nil
       expect(tree_with_nodes.find(47)).must_be_nil
     end
+
+    it "can delete the root of a big tree" do
+      # Arrange
+      tree_with_nodes.add(8, "Phil")
+      tree_with_nodes.add(18, "Sarah")
+
+      # Act
+      answer = tree_with_nodes.delete(5)
+
+      # Assert
+      expect(tree_with_nodes.find(5)).must_be_nil
+      expect(tree_with_nodes.find(3)).wont_be_nil
+    end
   end
 end
