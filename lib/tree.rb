@@ -19,7 +19,7 @@ class Tree
   # Time Complexity: O(log n)
   # Space Complexity: O(1)
   def add_helper(current_node, key, value)
-    return TreeNode.new(key,value) if current_node.nil?
+    return TreeNode.new(key, value) if current_node.nil?
     
     if key < current_node.key
       current_node.left = add_helper(current_node.left, key, value)
@@ -49,7 +49,7 @@ class Tree
   end
   
   def find(key)
-    @root = find_helper(@root, key)
+    return find_helper(@root, key)
   end
   
   # Time Complexity: O(n)
