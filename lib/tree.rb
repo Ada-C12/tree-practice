@@ -112,12 +112,65 @@ class Tree
     raise NotImplementedError
   end
 
+  def delete(key)
+    parent = nil
+    current = @root
+    # find the node, keeping track of its parent
+    result = find_with_parent_helper(current, parent, key)
+    return nil if result.nil?
+    current = result[:current]
+    parent = result[:parent]
+    # if the found node has no children
+    #   - if the node was parent.right, set parent.right to nil
+    #   - if the node was parent.left, set parent.left to nil
+    if current.left.nil? && current.right.nil?
+      (parent.right == current) \
+      ? parent.right = nil \
+      : parent.left = nil
+    # else if the found node has 1 child
+    #   - if child is .right, point parent.right to the child
+    elsif !current.right.nil? && current.left.nil?
+      (parent.right == current) \
+      ? parent.right = current.right \
+      : parent.left = current.right
+    #   - if child is .left, point parent.left to the child
+    elsif !current.left.nil? && current.right.nil?
+      (parent.right == current) \
+        ? parent.right = current.left \
+        : parent.left = current.left
+    else
+      # else if the found node has 2 children
+      #   - find the right child's leftmost leaf
+      right_child = current.right
+      leftmost_left = right_child.left
+      until leftmost_leaf.left.nil?
+        leftmost_leaf = leftmost_leaf.left
+      end
+      #   - copy leftmost leaf to item to delete
+      current.value = leftmost_leaf.value
+      #   - change right child's .left to point to leftmost leaf's .right
+      right_child.left = leftmost_leaf.right
+      #   - garbage collector deletes current
+    end
+  end
+
   # Useful for printing
   def to_s
     return "#{self.inorder}"
   end
 
   private
+
+  def find_with_parent_helper(current_node, parent_node, key)
+    return nil if current_node.nil?
+    return {"current": current_node, "parent": parent_node} if current_node.key == key
+
+    if key <= current_node.key
+      return find_with_parent_helper(current_node.left, current_node, key)
+    else
+      return find_with_parent_helper(current_node.right, current_node, key)
+    end
+  end
 
   def add_helper(current_node, key, value)
     return TreeNode.new(key, value) if current_node.nil?
