@@ -5,6 +5,8 @@ Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 
 describe Tree do
   let (:tree) {Tree.new}
+  let (:tree2) {Tree.new}
+  let (:tree3) {Tree.new}
 
   let (:tree_with_nodes) {
     tree.add(5, "Peter")
@@ -14,6 +16,29 @@ describe Tree do
     tree.add(15, "Ada")
     tree.add(25, "Kari")
     tree
+  }
+
+  let (:tree_with_nodes2) {
+    tree2.add(5, "Peter")
+    tree2.add(3, "Paul")
+    tree2.add(1, "Mary")
+    tree2.add(10, "Karla")
+    tree2.add(15, "Ada")
+    tree2.add(25, "Kari")
+    tree2.add(13, "Karino")
+    tree2
+  }
+
+  let (:tree_with_nodes3) {
+    tree3.add(5, "Peter")
+    tree3.add(3, "Paul")
+    tree3.add(1, "Mary")
+    tree3.add(10, "Karla")
+    tree3.add(15, "Ada")
+    tree3.add(25, "Kari")
+    tree3.add(17, "Karino")
+    tree3.add(30, "Karenina")
+    tree3
   }
 
   it "add & find values" do
@@ -76,6 +101,14 @@ describe Tree do
 
     it "returns correct height of tree" do
       expect(tree_with_nodes.height).must_equal 4
+    end
+
+    it "returns correct height of 2nd tree" do
+      expect(tree_with_nodes2.height).must_equal 4
+    end
+
+    it "returns correct height of 3rd tree" do
+      expect(tree_with_nodes3.height).must_equal 5
     end
   end
 
