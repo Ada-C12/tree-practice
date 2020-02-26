@@ -17,7 +17,7 @@ class Tree
   end
   
   # Time Complexity: O(log n)
-  # Space Complexity: O(1)
+  # Space Complexity: O(log n)
   def add(key, value)
     # if @root.nil?
     #   @root = TreeNode.new(key,value)
@@ -55,7 +55,7 @@ class Tree
   end
   
   # Time Complexity: O(log n)
-  # Space Complexity: O(1)
+  # Space Complexity: O(log n)
   def find(key)
     find_helper(@root, key)
   end
@@ -125,7 +125,7 @@ class Tree
   end
   
   # Time Complexity: O(n)
-  # Space Complexity: O(1)
+  # Space Complexity: O(n)
   def height
     return height_helper(@root) 
   end
