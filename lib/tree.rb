@@ -28,16 +28,28 @@ class Tree
     return current_node
   end
   
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(log n)
+  # Space Complexity: O(log n)
   def add(key, value)
     @root = add_helper(@root, key, value)
   end
   
-  # Time Complexity: 
-  # Space Complexity: 
+  def find_helper(current_node, target)
+    return current_node if current_node == nil
+    return current_node.value if current_node.key == target
+    
+    if target < current_node.key
+      find_helper(current_node.left, target)
+    else
+      find_helper(current_node.right, target)
+    end
+    
+  end
+  
+  # Time Complexity: O(log n)
+  # Space Complexity: O(log n)
   def find(key)
-    raise NotImplementedError
+    return find_helper(@root, key)
   end
   
   def inorder_helper(current_node, list)
@@ -50,28 +62,63 @@ class Tree
     return list
   end
   
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def inorder
     return inorder_helper(@root, [])
   end
   
-  # Time Complexity: 
-  # Space Complexity: 
+  def preorder_helper(current_node, list)
+    return list if current_node.nil?
+    
+    list << {key: current_node.key, value: current_node.value}
+    preorder_helper(current_node.left, list)
+    preorder_helper(current_node.right, list)
+    
+    return list
+  end
+  
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def preorder
-    raise NotImplementedError
+    return preorder_helper(@root, [])
   end
   
-  # Time Complexity: 
-  # Space Complexity: 
+  def postorder_helper(current_node, list)
+    return list if current_node.nil?
+    
+    postorder_helper(current_node.left, list)
+    postorder_helper(current_node.right, list)
+    list << {key: current_node.key, value: current_node.value}
+    
+    return list
+  end
+  
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def postorder
-    raise NotImplementedError
+    return postorder_helper(@root, [])
   end
   
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(log n)
+  # Space Complexity: O(log n)
+  
+  def height_helper(current_node)
+    return 0 if current_node.nil?
+    
+    left = height_helper(current_node.left)
+    right = height_helper(current_node.right)
+    
+    if left > right
+      return left += 1
+    else
+      return right += 1
+    end
+  end
+  
   def height
-    raise NotImplementedError
+    return 0 if @root.nil?
+    return height_helper(@root)
   end
   
   # Optional Method
@@ -86,3 +133,13 @@ class Tree
     return "#{self.inorder}"
   end
 end
+
+tree = Tree.new
+tree.add(1, "Brianna")
+tree.add(2, "Brianna")
+tree.add(3, "Brianna")
+# p tree
+
+# p tree.inorder
+p tree.find(2)
+p tree.find(3)
