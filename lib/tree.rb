@@ -19,87 +19,35 @@ class Tree
   
   
   # Time Complexity: 
-  # Space Complexity: 
-  # def add(key, value)
-  
-  #   temp = TreeNode.new(key, value)
-  
-  #   if @root == nil 
-  #     @root = temp
-  #     return
-  #   end
-  
-  #   current = @root
-  
-  #   ####First attemp
-  #   # until current == nil do
-  #   #   if (current.left != nil) && (temp.key < current.left.key)
-  #   #     if (temp.key > current.left.key && temp.key < current.right.key)
-  #   #       current = current.left
-  #   #     end
-  #   #   elsif (current.right != nil) && (temp.key > current.right.key)
-  #   #     current = current.right
-  #   #   end
-  #   # end
-  
-  
-  #   ####Second attempt
-  #   # until current.left == nil || current.right == nil do
-  #   #   if temp.key < current && current.left != nil
-  #   #     current = current.left
-  #   #   elsif temp.key > current && current.right != nil
-  #   #     current = current.right
-  #   #   else
-  #   #     return
-  #   # end
-  #   # temp = current
-  
-  #   # while true
-  #   #   if temp.key < current.key
-  #   #     if current.left != nil
-  #   #       current = current.left
-  #   #     else
-  #   #       current.left = temp
-  #   #       return
-  #   #     end
-  #   #   elsif
-  #   #     if current.right != nil
-  #   #       current = current.right
-  #   #     else
-  #   #       current.right = temp
-  #   #       return
-  #   #     end
-  #   #   else
-  #   #     return
-  #   #   end
-  #   # end
-  
-  #   # for recursion
-  
-  # end
-  
-  # Recursive way to do addition method
+  # Space Complexity:   
   def add(key, value)
-    current = @root
-    temp = TreeNode.new(key, value)
-    if @root == nil
+    
+    # finds the root and assigns it to current
+    current = @root 
+    
+    # creates a temporary node because we're going to add it to the structure regardless
+    temp = TreeNode.new(key, value) 
+    
+    # evaluates if the tree is empty, if so it adds the temporary node to the root and then returns 
+    if @root == nil 
       @root = temp
       return
+      
+      # otherwise it calls the add helper, passing into it the root as the current (starting) node, and the temporary node
     else
-      add_helper(@root, key, temp)
+      add_helper(@root, temp)
     end
   end
   
-  def add_helper(current_node, key, temp)
-    temp = temp
+  def add_helper(current_node, temp)
     if current_node == nil
       return temp
     end
     
-    if key < current_node.key 
-      current_node.left = add_helper(current_node.left, key, temp)
+    if temp.key < current_node.key 
+      current_node.left = add_helper(current_node.left, temp)
     else
-      current_node.right = add_helper(current_node.left, key, temp)
+      current_node.right = add_helper(current_node.right, temp)
     end
     return current_node
   end
@@ -131,23 +79,26 @@ class Tree
     end
   end
   
-  
-  
   # Time Complexity: 
   # Space Complexity: 
+  
   def inorder
-    return inorder_helper(@root, [])
+    if @root == nil
+      return []
+    end
+    inorder_helper(@root, [])
   end
   
   def inorder_helper(current_node, list)
     
-    return list if current_node.nil? # this is the thing that will cause the recursion to cascade back
+    if current_node == nil
+      return list
+    end
     
     inorder_helper(current_node.left, list)
-    list << {key: current_node.key, value: current_node.value}
+    list.push(current_node)
     inorder_helper(current_node.right, list)
     return list
-    
   end
   
   # Time Complexity: 

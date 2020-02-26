@@ -22,24 +22,55 @@ it "add & find values" do
   expect(tree.find(5)).must_equal "Peter"
   
   tree.add(15, "Ada")
-  puts tree
   expect(tree.find(15)).must_equal "Ada"
   
   tree.add(3, "Paul")
   expect(tree.find(3)).must_equal "Paul"
 end
 
-xit "can't find anything when the tree is empty" do
+# for troubleshooting purposes, this test is expanded to actually trace the structure of the tree
+
+it "add & find values expanded" do
+  tree.add(5, "Peter")
+  expect(tree.find(5)).must_equal "Peter"
+  
+  tree.add(3, "Paul")
+  expect(tree.find(3)).must_equal "Paul"
+  expect(tree.root.left.key).must_equal 3
+  
+  tree.add(1, "Mary")
+  expect(tree.find(1)).must_equal "Mary"
+  expect(tree.root.left.left.key).must_equal 1
+  
+  tree.add(10, "Karla")
+  expect(tree.find(10)).must_equal "Karla"
+  expect(tree.root.right.key).must_equal 10
+  
+  tree.add(15, "Ada")
+  expect(tree.find(15)).must_equal "Ada"
+  expect(tree.root.right.right.key).must_equal 15
+  
+  tree.add(25, "Kari")
+  expect(tree.find(25)).must_equal "Kari"
+  expect(tree.root.right.right.right.key).must_equal 25
+  
+  
+end
+
+
+
+
+it "can't find anything when the tree is empty" do
   expect(tree.find(50)).must_be_nil
 end
 
-xdescribe "inorder" do
+describe "inorder" do
+  
   it "will give an empty array for an empty tree" do
     expect(tree.inorder).must_equal []
   end
   
   it "will return the tree in order" do
-    
     expect(tree_with_nodes.inorder).must_equal [{:key=>1, :value=>"Mary"}, {:key=>3, :value=>"Paul"}, 
     {:key=>5, :value=>"Peter"}, {:key=>10, :value=>"Karla"}, 
     {:key=>15, :value=>"Ada"}, {:key=>25, :value=>"Kari"}]
