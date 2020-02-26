@@ -56,7 +56,7 @@ class Tree
     end
   end
   
-  # Time Complexity: O(n)
+  # Time Complexity: O(n) with n is the number of nodes in the tree
   # Space Complexity: O(n)
   def inorder
     list = []
@@ -99,7 +99,7 @@ class Tree
   #   return inorder_helper(@root)
   # end
   
-  # Time Complexity: O(n)
+  # Time Complexity: O(n) with n is the number of nodes in the tree
   # Space Complexity: O(n)
   def preorder_helper(current_node, list = [])
     return list if !current_node
@@ -113,7 +113,7 @@ class Tree
     return preorder_helper(@root)
   end
   
-  # Time Complexity: O(n)
+  # Time Complexity: O(n) with n is the number of nodes in the tree
   # Space Complexity: O(n)
   def postorder_helper(current_node, list = [])
     return list if !current_node
@@ -127,8 +127,8 @@ class Tree
     return postorder_helper(@root)
   end
   
-  # Time Complexity: O(n)
-  # Space Complexity: O(n)
+  # Time Complexity: O(n) with n is the number of nodes in the tree
+  # Space Complexity: O(logn) which is also the height of the tree.
   def height_helper(current_node, level = 0)
     return level if !current_node
     level = [height_helper(current_node.left, level + 1), height_helper(current_node.right, level + 1)].max
