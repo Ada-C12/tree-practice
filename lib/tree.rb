@@ -144,10 +144,9 @@ class Tree
   # Space Complexity: O(n)
   def bfs
     list = []
-    current = @root
-    if current
+    if @root
       queue = []
-      queue << current
+      queue << @root
       queue.each do |current|
         list << {key: current.key, value: current.value}
         queue << current.left if current.left
