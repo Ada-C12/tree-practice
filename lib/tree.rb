@@ -61,6 +61,25 @@ class Tree
     end
   end
 
+  def find_node(key)
+    if @root.nil?
+      return nil
+    else
+      find_node_helper(key, @root)
+    end
+  end
+
+  def find_node_helper(key, current)
+    return nil if current.nil?
+    if current.key == key
+      return current
+    elsif key > current.key
+      find_node_helper(key, current.right)
+    else
+      find_node_helper(key, current.left)
+    end
+  end
+
   def delete(key)
     node = find_node(key)
     unless node.nil?
@@ -75,9 +94,10 @@ class Tree
       node = node.left
     elsif node.left.nil? && !node.right.nil?
       node = node.right
+      puts node.value
     else
       min_node = find_min_node(node.right)
-      node.value = min_node.value
+      node = min_node
       min_node = nil
     end
   end
