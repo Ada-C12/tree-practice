@@ -16,24 +16,17 @@ class Tree
     @root = nil
   end
   
-  
-  
   # Time Complexity: 
   # Space Complexity:   
   def add(key, value)
     
-    # finds the root and assigns it to current
     current = @root 
-    
-    # creates a temporary node because we're going to add it to the structure regardless
     temp = TreeNode.new(key, value) 
     
-    # evaluates if the tree is empty, if so it adds the temporary node to the root and then returns 
     if @root == nil 
       @root = temp
       return
       
-      # otherwise it calls the add helper, passing into it the root as the current (starting) node, and the temporary node
     else
       add_helper(@root, temp)
     end
@@ -81,7 +74,6 @@ class Tree
   
   # Time Complexity: 
   # Space Complexity: 
-  
   def inorder
     if @root == nil
       return []
@@ -96,7 +88,7 @@ class Tree
     end
     
     inorder_helper(current_node.left, list)
-    list.push(current_node)
+    list.push({key: current_node.key, value: current_node.value})
     inorder_helper(current_node.right, list)
     return list
   end
@@ -104,20 +96,79 @@ class Tree
   # Time Complexity: 
   # Space Complexity: 
   def preorder
-    raise NotImplementedError
+    if @root == nil
+      return []
+    else
+      return preorder_helper(@root, [])
+    end
+  end
+  
+  def preorder_helper(current_node, list)
+    if current_node == nil
+      return list
+    end
+    
+    list.push({key: current_node.key, value: current_node.value})
+    preorder_helper(current_node.left, list)
+    preorder_helper(current_node.right, list)
+    
+    return list
   end
   
   # Time Complexity: 
   # Space Complexity: 
   def postorder
-    raise NotImplementedError
+    if @root == nil
+      return []
+    else
+      return postorder_helper(@root, [])
+    end
+  end
+  
+  def postorder_helper(current_node, list)
+    if current_node == nil
+      return list
+    end
+    
+    postorder_helper(current_node.left, list)
+    postorder_helper(current_node.right, list)
+    list.push({key: current_node.key, value: current_node.value})
+    
+    return list
   end
   
   # Time Complexity: 
   # Space Complexity: 
   def height
-    raise NotImplementedError
+    if @root == nil
+      return 0
+    elsif @root.left == nil && @root.right == nil
+      return 1
+    end
+    
+    counter = 0
+    high_value = 1 # set to 1 bc if this method is called, the root is a parent
+    
+    return height_helper(@root, counter, high_value)
+    
   end
+  
+  def height_helper(current_node, counter, high_value)
+    
+    if current_node == nil
+      counter += 1
+      if counter > high_value
+        high_value = counter
+      end
+      return high_value
+    end
+    
+    height_helper(current_node.left, counter, high_value)
+    height_helper(current_node.right, counter, high_value)
+    return high_value
+    
+  end
+  
   
   # Optional Method
   # Time Complexity: 

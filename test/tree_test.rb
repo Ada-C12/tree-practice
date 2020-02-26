@@ -53,12 +53,7 @@ it "add & find values expanded" do
   tree.add(25, "Kari")
   expect(tree.find(25)).must_equal "Kari"
   expect(tree.root.right.right.right.key).must_equal 25
-  
-  
 end
-
-
-
 
 it "can't find anything when the tree is empty" do
   expect(tree.find(50)).must_be_nil
@@ -77,8 +72,7 @@ describe "inorder" do
   end
 end
 
-
-xdescribe "preorder" do
+describe "preorder" do
   it "will give an empty array for an empty tree" do
     expect(tree.preorder).must_equal []
   end
@@ -90,7 +84,7 @@ xdescribe "preorder" do
   end
 end
 
-xdescribe "postorder" do
+describe "postorder" do
   it "will give an empty array for an empty tree" do
     expect(tree.postorder).must_equal []
   end
@@ -102,7 +96,7 @@ xdescribe "postorder" do
   end
 end
 
-xdescribe "height" do
+describe "height" do
   it "returns 0 for an empty tree" do
     expect(tree.height).must_equal 0
   end
