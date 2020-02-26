@@ -16,8 +16,8 @@ class Tree
     @root = nil
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(logn), at worst, the algorighm will be called O(logn) times to add the new node to the bottom of the tree. 
+  # Space Complexity: O(1) the amount of data stored is constant, though the space required in memory for the stack trace will be O(logn)
   def add(key, value)
     if @root.nil?
       @root = TreeNode.new(key, value)
@@ -40,8 +40,8 @@ class Tree
     return current
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(logn), at worst, the algorighm will be called O(logn) times to add the new node to the bottom of the tree. 
+  # Space Complexity: O(1) the amount of data stored is constant, though the space required in memory for the stack trace will be O(logn)
   def find(key)
     if @root.nil?
       return nil
@@ -62,8 +62,8 @@ class Tree
     end
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n), because the algorithm will have to visit every node on the tree to add them to the nodes_array list
+  # Space Complexity: O(n) because the size of the nodes_array list will vary linearly with the number of nodes in the tree.
   def inorder
     return inorder_helper(@root, [])  
   end
@@ -78,8 +78,8 @@ class Tree
     return nodes_array
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n), because the algorithm will have to visit every node on the tree to add them to the nodes_array list
+  # Space Complexity: O(n) because the size of the nodes_array list will vary linearly with the number of nodes in the tree.
   def preorder
     return preorder_helper(@root, [])
   end
@@ -94,8 +94,8 @@ class Tree
     return nodes_array
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n), because the algorithm will have to visit every node on the tree to add them to the nodes_array list
+  # Space Complexity: O(n) because the size of the nodes_array list will vary linearly with the number of nodes in the tree. 
   def postorder
     return postorder_helper(@root, [])
   end
@@ -110,8 +110,8 @@ class Tree
     return nodes_array
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n), because the algorithm will have to visit every node on the tree in order to determine the height of the tree
+  # Space Complexity: O(1) because the amount of data stored is constant, though the space required in memory for the stack trace will be O(n)
   def height
     return 0 if @root.nil?
 
@@ -128,8 +128,8 @@ class Tree
   end
 
   # Optional Method
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n), because the algorithm will have to visit every node on the tree to add them to the nodes_array list
+  # Space Complexity: O(n) because the size of the nodes_array list will vary linearly with the number of nodes in the tree. 
   def bfs
     nodes_array = []
     
