@@ -134,12 +134,12 @@ class Tree
   end
 end
 
-tree = Tree.new
-tree.add(1, "Brianna")
-tree.add(2, "Brianna")
-tree.add(3, "Brianna")
-# p tree
+# tree = Tree.new
+# tree.add(1, "Brianna")
+# tree.add(2, "Brianna")
+# tree.add(3, "Brianna")
+# # p tree
 
-# p tree.inorder
-p tree.find(2)
-p tree.find(3)
+# # p tree.inorder
+# p tree.find(2)
+# p tree.find(3)
