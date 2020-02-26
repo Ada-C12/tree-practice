@@ -16,8 +16,8 @@ class Tree
     @root = nil
   end
   
-  # Time Complexity: 
-  # Space Complexity:   
+  # Time Complexity: O(log n)
+  # Space Complexity: O(n)
   def add(key, value)
     
     current = @root 
@@ -45,8 +45,8 @@ class Tree
     return current_node
   end
   
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(log n)
+  # Space Complexity: O(n)
   def find(key)
     current = @root
     if current == nil
@@ -72,8 +72,8 @@ class Tree
     end
   end
   
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def inorder
     if @root == nil
       return []
@@ -93,8 +93,8 @@ class Tree
     return list
   end
   
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def preorder
     if @root == nil
       return []
@@ -115,8 +115,8 @@ class Tree
     return list
   end
   
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def postorder
     if @root == nil
       return []
@@ -137,8 +137,8 @@ class Tree
     return list
   end
   
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def height
     if @root == nil
       return 0
@@ -146,27 +146,23 @@ class Tree
       return 1
     end
     
-    counter = 0
-    high_value = 1 # set to 1 bc if this method is called, the root is a parent
-    
-    return height_helper(@root, counter, high_value)
+    return height_helper(@root)
     
   end
   
-  def height_helper(current_node, counter, high_value)
+  def height_helper(current_node)
     
     if current_node == nil
-      counter += 1
-      if counter > high_value
-        high_value = counter
-      end
-      return high_value
+      return 0
     end
     
-    height_helper(current_node.left, counter, high_value)
-    height_helper(current_node.right, counter, high_value)
-    return high_value
-    
+    left = height_helper(current_node.left)
+    right = height_helper(current_node.right)
+    if left > right
+      return left + 1
+    else
+      return right + 1
+    end
   end
   
   
