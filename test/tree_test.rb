@@ -98,7 +98,7 @@ describe Tree do
     end
   end
 
-  xdescribe "delete" do
+  describe "delete" do
     it "can delete a note in the tree" do
       # Arrange & Assert
       expect(tree_with_nodes.find(15)).must_equal "Ada"
