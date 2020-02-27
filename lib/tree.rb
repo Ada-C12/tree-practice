@@ -204,26 +204,33 @@ class Tree
       if !currNode.left && !currNode.right
         return 1
       else
-        # set initial conditions for the subtrees  
-        leftHeight = 0
-        rightHeight = 0
 
         if currNode.left 
           leftHeight = 1 + subtree_height(currNode.left)
+        else
+          leftHeight = 0
         end
         
         if currNode.right
           rightHeight = 1 + subtree_height(currNode.right)
+        else
+          rightHeight = 0
         end 
 
-        if leftHeight >= rightHeight 
-          return leftHeight
-        else
-          return rightHeight
-        end
+        return [leftHeight, rightHeight].max
       end
       
     end
+  end
+
+  def subtree_height_Chris(currNode)
+    # more succinct than mine...
+    return 0 if current.nil?
+
+    leftHeight = subtree_height_Chris(currNode.left)
+    rightHeight = subtree_height_Chris(currNode.right)
+
+    return [leftHeight, rightHeight].max + 1
   end
 
   # Optional Method
