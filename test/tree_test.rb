@@ -142,5 +142,22 @@ describe Tree do
       # Assert
       expect(tree_with_one_nodes.find(5)).must_be_nil
     end
+    
+    it "can delete the node with only left subtree" do
+      # Arrange & Assert
+      expect(tree_with_nodes.find(3)).must_equal "Paul"
+      expect(tree_with_nodes.bfs).must_equal [{:key=>5, :value=>"Peter"}, {:key=>3, :value=>"Paul"}, 
+      {:key=>10, :value=>"Karla"}, {:key=>1, :value=>"Mary"}, 
+      {:key=>15, :value=>"Ada"}, {:key=>25, :value=>"Kari"}]
+      
+      # Act
+      tree_with_nodes.delete(3)
+      
+      # Assert
+      expect(tree_with_nodes.find(3)).must_be_nil
+      expect(tree_with_nodes.bfs).must_equal [{:key=>5, :value=>"Peter"},  {:key=>1, :value=>"Mary"}, 
+      {:key=>10, :value=>"Karla"},{:key=>15, :value=>"Ada"}, 
+      {:key=>25, :value=>"Kari"}]
+    end
   end
 end
