@@ -91,7 +91,7 @@ class Tree
     return inorder_helper(@root, [])
   end
 
-  def preorder_helper(current_node, list)
+  def preorder_helper(current_node, list = [])
     # root -> left -> right
     return list if current_node.nil?
     list << { key: current_node.key, value: current_node.value }
@@ -103,10 +103,10 @@ class Tree
   # Time Complexity: O(logn) where n is the number of nodes
   # Space Complexity: O(logn) where n is the number of nodes
   def preorder
-    return preorder_helper(@root, [])
+    return preorder_helper(@root)
   end
 
-  def postorder_helper(current_node, list)
+  def postorder_helper(current_node, list = [])
     return list if current_node.nil?
     postorder_helper(current_node.left, list)
     postorder_helper(current_node.right, list)
@@ -118,7 +118,7 @@ class Tree
   # Space Complexity: O(logn) where n is the number of nodes
   def postorder
     # left -> right -> root
-    return postorder_helper(@root, [])
+    return postorder_helper(@root)
   end
 
   def height_helper(current_node, max, count)
@@ -130,7 +130,23 @@ class Tree
 
     height_helper(current_node.left, max, count + 1)
     height_helper(current_node.right, max, count + 1)
+
   end
+
+  # class version
+  # def height_helper(current)
+  #   return 0 if current.nil?
+  #   left_height = height_helper(current.left)
+  #   right_height = height_helper(current.right)
+
+  #   # returns the height of the bigger of the two subtrees
+  #   return [left_height, right_height].max + 1
+    
+  # end
+
+  # def height
+  #   return height_helper(@root)
+  # end
 
   # Time Complexity: O(n) where n is the number of nodes
   # Space Complexity: O(n) where n is the number of nodes
