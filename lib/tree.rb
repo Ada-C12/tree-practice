@@ -157,7 +157,22 @@ class Tree
     return "#{self.inorder}"
   end
 
+  # Create a method which takes in an array of sorted students and generates a balanced Binary Search Tree.
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def create_tree_helper(tree, list, first = 0, last = list.length - 1)
+    # base case
+    if first == last
+      tree.add(first)
+      return
+    elsif first > last
+      return
+    end
+
+    middle_node = (last + first) / 2
+    tree.add(list[middle_node])
+    create_tree_helper(tree, list, first, middle_node - 1)
+    create_tree_helper(tree, list, first, middle_node + 1)
   end
 
   def create_tree(list)
@@ -166,4 +181,22 @@ class Tree
     create_tree_helper(tree, list)
     return tree
   end
+
+  # Write a method which takes a TreeNode, called current_node as an argument and returns true if the tree with it's root at current_node is the root of a valid binary search tree and false if it is not.
+  # Time Complexity: O(n)
+  # Space Complexity: 
+  def valid_tree(current_node)
+    return true if current_node.nil?
+
+    return false if current_node.left != nil && current_node.left.key > current_node.key
+
+    return false if current_node.right != nil && current_node.right.key < current_node.key
+
+    return valid_tree(current_node.right) && valid_tree(current_node.left)
+  end
 end
+
+# Find middle node
+# Make that a new node (add it)
+# Make the left subtree of that new node with the left half of the array
+# Make the right subtree of that new node with the right half of the array
