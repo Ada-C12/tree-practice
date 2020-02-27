@@ -239,19 +239,22 @@ class Tree
     currIndex = 0
     
     while listOfNodes[currIndex]
-      puts "\nlist is currenty... "
-      printNodesInList(listOfNodes)
+
+      # puts "\nlist is currenty... "
+      # printNodesInList(listOfNodes)
       
       currNode = listOfNodes[currIndex]
-      puts "looking at listOfNodes: #{listOfNodes}"
+
       if currNode.left
         listOfNodes << currNode.left 
         answer << {key: currNode.left.key, value: currNode.left.value} 
       end
+
       if currNode.right
         listOfNodes << currNode.right
         answer << {key: currNode.right.key, value: currNode.right.value} 
       end
+      
       currIndex += 1
     end
     
@@ -259,6 +262,7 @@ class Tree
   end
   
   def printNodesInList(list)
+    # helps in visualization
     currIndex = 0
     while list[currIndex]
       puts "\t#{list[currIndex].key}/#{list[currIndex].value}"
