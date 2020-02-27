@@ -156,4 +156,14 @@ class Tree
   def to_s
     return "#{self.inorder}"
   end
+
+  def create_tree_helper(tree, list, first = 0, last = list.length - 1)
+  end
+
+  def create_tree(list)
+    tree = Tree.new
+
+    create_tree_helper(tree, list)
+    return tree
+  end
 end
