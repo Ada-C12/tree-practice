@@ -113,7 +113,7 @@ class Tree
   end
 
   # Time Complexity: O(n)
-  # Space Complexity: O(log n) assuming a balanced tree, else O(n)
+  # Space Complexity: O(n) b/c i'm building an []
   def inorder 
     return inorder_helper(root, [])
   end
@@ -139,7 +139,7 @@ class Tree
   end
 
   # Time Complexity: O(n)
-  # Space Complexity: O(log n) assuming a balanced tree, else O(n)
+  # Space Complexity: O(n) b/c i'm building an []
   def preorder
     return preorder_helper(root, [])
   end
@@ -165,7 +165,7 @@ class Tree
   end
 
   # Time Complexity: O(n)
-  # Space Complexity: O(log n) assuming a balanced tree, else O(n)
+  # Space Complexity: O(n) b/c i'm building an []
   def postorder
     return postorder_helper(root, [])
   end
@@ -227,8 +227,8 @@ class Tree
   end
 
   # Optional Method
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n) b/c i'm building an []
   def bfs
     return [] if !root
 
