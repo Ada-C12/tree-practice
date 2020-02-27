@@ -160,9 +160,11 @@ class Tree
     current_and_parent_pair = find_current_and_parent_nodes(key)
     current = current_and_parent_pair[:current] 
     parent = current_and_parent_pair[:parent]
-    # rearrange new subtree from children if current is not a leaf node
+    # rearrange new subtree from children if current is not a leaf node, else remove leaf node
     if current 
-      if (current.left || current.right)
+      if !current.left && !current.right
+        remove_leaf(parent, current)
+      else
         left = current.left 
         right = current.right 
         right_subtree_leftmost = find_leftmost_node(right)
@@ -170,17 +172,6 @@ class Tree
         
         new_subtree = right_subtree_leftmost ? right : left
         link_node_to_parent(parent, new_subtree)
-      else
-        if !parent
-          @root = nil
-        else
-          if parent.value > current.value
-            parent.left = nil
-          else
-            parent.right = nil
-          end
-        end
-        
       end
     end
   end
@@ -226,6 +217,18 @@ class Tree
       parent.left = node
     else
       parent.right = node
+    end
+  end
+
+  def remove_leaf(parent, leaf)
+    if !parent
+      @root = nil
+    elsif parent && leaf
+      if parent.value > leaf.value
+        parent.left = nil
+      else
+        parent.right = nil
+      end
     end
   end
 end
