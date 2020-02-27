@@ -1,13 +1,13 @@
 class TreeNode
   attr_reader :key, :value
   attr_accessor :left, :right
-
-   def initialize(key, val)
+  
+  def initialize(key, val)
     @key = key
     @value = val
     @left = nil
     @right = nil
-   end
+  end
 end
 
 class Tree
@@ -15,7 +15,7 @@ class Tree
   def initialize
     @root = nil
   end
-
+  
   # Time Complexity: O(logn) in best case
   # Space Complexity: O(1)
   def add(key, value)
@@ -29,7 +29,7 @@ class Tree
       link_node_to_parent(parent, new_node)
     end
   end
-
+  
   # IN CLASS PRACTICE: add() recursive
   # def add_helper(current_node, key, value)
   #   return TreeNode.new(key, value) if !current_node
@@ -44,7 +44,7 @@ class Tree
   # def add(key, value)
   #   @root = add_helper(@root, key, value)
   # end
-
+  
   # Time Complexity: O(logn) in best case
   # Space Complexity: O(1)
   def find(key)
@@ -108,7 +108,7 @@ class Tree
     preorder_helper(current_node.right, list)
     return list
   end
-
+  
   def preorder
     return preorder_helper(@root)
   end
@@ -122,7 +122,7 @@ class Tree
     list << {key: current_node.key, value: current_node.value}
     return list
   end
-
+  
   def postorder
     return postorder_helper(@root)
   end
@@ -138,7 +138,7 @@ class Tree
   def height
     return height_helper(@root)
   end
-
+  
   # Optional Method
   # Time Complexity: O(n)
   # Space Complexity: O(n)
@@ -159,19 +159,32 @@ class Tree
   def delete(key)
     current_and_parent_pair = find_current_and_parent_nodes(key)
     current = current_and_parent_pair[:current] 
+    parent = current_and_parent_pair[:parent]
     # rearrange new subtree from children if current is not a leaf node
-    if current && (current.left || current.right)
-      left = current.left 
-      right = current.right 
-      right_subtree_leftmost = find_leftmost_node(right)
-      right_subtree_leftmost.left = left if right_subtree_leftmost
-      
-      new_subtree = right_subtree_leftmost ? right : left
-      parent = current_and_parent_pair[:parent]
-      link_node_to_parent(parent, new_subtree)
+    if current 
+      if (current.left || current.right)
+        left = current.left 
+        right = current.right 
+        right_subtree_leftmost = find_leftmost_node(right)
+        right_subtree_leftmost.left = left if right_subtree_leftmost
+        
+        new_subtree = right_subtree_leftmost ? right : left
+        link_node_to_parent(parent, new_subtree)
+      else
+        if !parent
+          @root = nil
+        else
+          if parent.value > current.value
+            parent.left = nil
+          else
+            parent.right = nil
+          end
+        end
+        
+      end
     end
   end
-
+  
   # Useful for printing
   def to_s
     return "#{self.inorder}"

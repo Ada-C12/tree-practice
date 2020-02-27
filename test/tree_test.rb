@@ -118,5 +118,29 @@ describe Tree do
       expect(answer).must_be_nil
       expect(tree_with_nodes.find(47)).must_be_nil
     end
+
+    it "can delete a leaf node" do
+      expect(tree_with_nodes.find(1)).must_equal "Mary"
+      expect(tree_with_nodes.find(25)).must_equal "Kari"
+
+      tree_with_nodes.delete(1)
+      expect(tree_with_nodes.find(1)).must_be_nil
+      
+      tree_with_nodes.delete(25)
+      expect(tree_with_nodes.find(25)).must_be_nil
+    end
+
+    it "can delete the only node of a tree" do
+      tree_with_one_nodes = Tree.new()
+      tree_with_one_nodes.add(5, "Peter")
+      # Arrange & Assert
+      expect(tree_with_one_nodes.find(5)).must_equal "Peter"
+
+      # Act
+      tree_with_one_nodes.delete(5)
+
+      # Assert
+      expect(tree_with_one_nodes.find(5)).must_be_nil
+    end
   end
 end
