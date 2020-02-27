@@ -158,20 +158,16 @@ class Tree
   # Time Complexity: O(n)
   # Space Complexity: O(log n)
   def height
-    return height_helper(@root, 0, 0)
+    return height_helper(@root)
   end
 
-  def height_helper(node, left, right)
-    if node.nil?
-      if left >= right
-        return left
-      else
-        return right
-      end
-    end
+  def height_helper(current)
+    return 0 if current.nil?
 
-    height_helper(node.left, left + 1, right)
-    height_helper(node.right, left, right + 1)
+    left_height = height_helper(current.left)
+    right_height = height_helper(current.right)
+
+    return [left_height, right_height].max + 1
   end
 
   # Optional Method
