@@ -130,7 +130,13 @@ class Tree
 
     height_helper(current_node.left, max, count + 1)
     height_helper(current_node.right, max, count + 1)
+  end
 
+  # Time Complexity: O(n) where n is the number of nodes
+  # Space Complexity: O(n) where n is the number of nodes
+  def height
+    return 0 if @root.nil?
+    return height_helper(@root, 0, 1)
   end
 
   # class version
@@ -148,18 +154,24 @@ class Tree
   #   return height_helper(@root)
   # end
 
-  # Time Complexity: O(n) where n is the number of nodes
-  # Space Complexity: O(n) where n is the number of nodes
-  def height
-    return 0 if @root.nil?
-    return height_helper(@root, 0, 1)
-  end
-
   # Optional Method
   # Time Complexity: 
   # Space Complexity: 
   def bfs
-    raise NotImplementedError
+    # this is 'really' a traversal, but this type of search is similar to what we'll be doing with graphs and it's called 'breadth first search'
+    list = []
+    return list if @root.nil?
+    queue = [@root]
+
+    until queue.empty?
+      # big O of shift is O(n)
+      current = queue.shift
+      # how to check if current has a left subtree?
+      queue.push(current.left) unless current.left.nil?
+      queue.push(current.right) unless current.right.nil?
+
+      list << { key: current.key, value: current.value}
+    end
   end
 
   # Time Complexity: 
