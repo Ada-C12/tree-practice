@@ -107,16 +107,17 @@ class Tree
 
   # Time Complexity: O(n) where n is number of nodes in tree
   # Space Complexity: O(n) where n is number of nodes in tree
-  def height_helper(current_node, count, max)
-    return max if current_node.nil?
+  def height_helper(current_node)
+    return 0 if current_node.nil?
 
-    max = count if count > max
-    height_helper(current_node.left, count + 1, max)
-    height_helper(current_node.right, count + 1, max)
+    left_height = height_helper(current.left)
+    right_height = height_helper(current.right)
+
+    return [left_height, right].max + 1
   end
   
   def height
-    return height_helper(@root, 1, 0)
+    return height_helper(@root)
   end
 
   # Optional Method
@@ -141,7 +142,13 @@ class Tree
   # Time Complexity: O(n) where n is number of nodes in tree
   # Space Complexity: O(n) where n is number of nodes in tree
   def two_child_delete(node)
-    # TODO
+    return node if node.left.nil?
+    
+    until node.nil? do
+      return node if node.left.nil?
+      node = node.left
+    end
+
   end
   
   def delete_helper(node)
@@ -152,7 +159,7 @@ class Tree
     elsif node.left.nil? && node.right
       node = node.right
     else
-      node = two_child_delete(node)
+      node = two_child_delete(node.right)
     end
     return node
   end
@@ -168,3 +175,9 @@ class Tree
     return "#{self.inorder}"
   end
 end
+
+  #             100
+  #        50         150
+  #   25      75    125   200
+  # 10   30  60  80
+  #         52  71

@@ -109,19 +109,21 @@ describe Tree do
       expect(tree_with_nodes.find(15)).must_equal "Ada"
 
       # Act
-      tree_with_nodes.delete(15)
+      puts tree_with_nodes.delete(15).value
+
+      p tree_with_nodes.to_s
 
       # Assert
       expect(tree_with_nodes.find(15)).must_be_nil
     end
 
     it "will return nil if the node is not in the tree when it's deleted" do
-    #   # Arrange & Act
-    #   answer = tree_with_nodes.delete(47)
+      # Arrange & Act
+      answer = tree_with_nodes.delete(47)
 
-    #   # Assert
-    #   expect(answer).must_be_nil
-    #   expect(tree_with_nodes.find(47)).must_be_nil
+      # Assert
+      expect(answer).must_be_nil
+      expect(tree_with_nodes.find(47)).must_be_nil
     end
   end
 end
