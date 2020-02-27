@@ -225,7 +225,7 @@ class Tree
     if !parent
       @root = nil
     elsif current
-      if parent.value > current.value
+      if parent.key > current.key
         parent.left = nil
       else
         parent.right = nil

@@ -159,5 +159,24 @@ describe Tree do
       {:key=>10, :value=>"Karla"},{:key=>15, :value=>"Ada"}, 
       {:key=>25, :value=>"Kari"}]
     end
+
+    it "can delete the node with only right subtree" do
+      # Arrange & Assert
+      expect(tree_with_nodes.find(10)).must_equal "Karla"
+      expect(tree_with_nodes.bfs).must_equal [{:key=>5, :value=>"Peter"}, {:key=>3, :value=>"Paul"}, 
+      {:key=>10, :value=>"Karla"}, {:key=>1, :value=>"Mary"}, 
+      {:key=>15, :value=>"Ada"}, {:key=>25, :value=>"Kari"}]
+      
+      # Act
+      tree_with_nodes.delete(10)
+      
+      # Assert
+      expect(tree_with_nodes.find(10)).must_be_nil
+      expect(tree_with_nodes.find(3)).must_equal "Paul"
+  
+      expect(tree_with_nodes.bfs).must_equal [{:key=>5, :value=>"Peter"}, {:key=>3, :value=>"Paul"}, 
+      {:key=>15, :value=>"Ada"}, {:key=>1, :value=>"Mary"}, 
+      {:key=>25, :value=>"Kari"}]
+    end
   end
 end
