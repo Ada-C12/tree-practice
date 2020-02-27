@@ -106,7 +106,7 @@ class Tree
   end
 
   # Time Complexity: O(n) where n is number of nodes in tree
-  # Space Complexity: O(n) where n is number of nodes in tree
+  # Space Complexity: O(log n) where n is number of nodes in tree
   def height_helper(current_node)
     return 0 if current_node.nil?
 
