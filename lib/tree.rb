@@ -147,7 +147,7 @@ class Tree
   end
 
   # Time Complexity: O(n) since we are checking each node
-  # Space Complexity: Also O(n)
+  # Space Complexity: O(log n) for a balanced tree since we are never keeping track of more stacks than the height of the tree
   def height
 
     # start counting height at 0
@@ -163,8 +163,8 @@ class Tree
     return height if current_node.nil?
 
     # recursive cases: there is a node to the left or right
-    # traverse nodes below current
-    # if current has a node below, add 1 to height and check node below that
+    #   - traverse nodes below current
+    #   - if current has a node below, add 1 to height and check node below that
     # this code checks height of left side of tree and then adds to total height if right side has more levels
     height_helper(current_node.left, height + 1)
     height_helper(current_node.right, height + 1)
@@ -176,12 +176,49 @@ class Tree
   # Optional Method
   # Time Complexity: 
   # Space Complexity: 
-  def bfs
-    raise NotImplementedError
+  def bfs # like reading left to right
+    # you need a queue (you could use an array) for breadth-first search
+
+    list = []
+    return list if @root.nil?
+    queue = [@root]
+
+    until queue.empty?
+      current = queue.shift # shift removes first element of array and returns it (or returns nil if array is empty). time complexity is O(n)
+      queue.push(current.left) unless current.left.nil?
+      queue.push(current.right) unless current.right.nil?
+
+      list << { key: current.key, value: current.value }
+    end
+
+    return list
+
+  end
+
+  def delete(key)
+    # the key to this method is finding a leaf-level node that the target node can be swapped with 
+    current_and_parent_pair = find_current_and_parent_nodes(key)
+    current = current_and_parent_pair[:current]
+    parent = current_and_parent_pair[:parent]
+    if current
+      remove_child(parent, current)
+      new_subtree = nil
+
+      # rearrange new subtree from children if current is not a leaf node
+      if current.left || current.right
+        left = current.left
+        right = current.right
+        right_subtree_leftmost = find_leftmost_node(right)
+        right_subtree_leftmost.left = left if right_subtree_leftmost
+        
+        new_subtree
+      end
+    end
   end
 
   # Useful for printing
   def to_s
     return "#{self.inorder}"
   end
+
 end
