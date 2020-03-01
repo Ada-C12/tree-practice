@@ -16,8 +16,8 @@ class Tree
     @root = nil
   end
   
-  # Time Complexity: O(log n)
-  # Space Complexity: O(1)
+  # Time Complexity: O(logn)
+  # Space Complexity: O(logn) if tree is balanced and O(n) if it's not balanced.
   def add_helper(current_node, key, value)
     return TreeNode.new(key, value) if current_node.nil?
     
@@ -34,8 +34,8 @@ class Tree
     @root = add_helper(@root, key, value)
   end
   
-  # Time Complexity: O(log n)
-  # Space Complexity: O(1)  
+  # Time Complexity: O(logn)
+  # Space Complexity: O(logn) if tree is balanced and O(n) if it's not balanced.
   def find_helper(current_node, key)
     return nil if current_node.nil?
     
@@ -99,7 +99,7 @@ class Tree
   end
   
   # Time Complexity: O(n)
-  # Space Complexity: O(n)  
+  # Space Complexity: O(logn) if tree is balanced and O(n) if it's not balanced.
   def height_helper(current_node)
     return 0 if current_node.nil?
     
@@ -115,11 +115,37 @@ class Tree
   end
   
   # Optional Method
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
+  def bfs
+    list = []
+    return list if @root.nil?
+    queue = [@root]
+    
+    until queue.empty?
+      current = queue.shift
+      queue.push(current.left) unless current.left.nil?
+      queue.push(current.right) unless current.right.nil?
+      
+      list << {key: current.key, value: current.value}
+    end 
+    return list
+  end
+  
   # Time Complexity: 
   # Space Complexity: 
-  def bfs
-    raise NotImplementedError
-  end
+  def find_largest(current)
+    current = current_root
+    
+    while current.right
+      current = current.right
+    end 
+    return current 
+  end 
+  
+  # def delete(key)  
+  #   raise NotImplementedError
+  # end 
   
   # Useful for printing
   def to_s
