@@ -16,8 +16,8 @@ class Tree
     @root = nil
   end
 
-  # Time Complexity: O(logn) in worst case scenario
-  # Space Complexity: O(1) always just adding 1 new node
+  # Time Complexity: O(logn) in best case scenario
+  # Space Complexity: 
   def add(key, value)
     @root = add_helper(@root, key, value)
   end
@@ -35,7 +35,7 @@ class Tree
   end
 
   # Time Complexity: O(logn) since binary
-  # Space Complexity: O(1) since adding nothing new
+  # Space Complexity: O(n) since
   def find(key)
     return find_helper(@root, key)
   end
@@ -53,7 +53,7 @@ class Tree
 
 
   # Time Complexity: O(n) since going to each node once, backtracking but still backtracking a smaller number of times than there are nodes, so it depends on the number of nodes no matter what.
-  # Space Complexity: O(1) - nothing being made
+  # Space Complexity: O(n) making an array that is number-of-nodes long
   def inorder
     return inorder_helper(@root, [])
   end
@@ -100,7 +100,7 @@ class Tree
   end
 
   # Time Complexity: O(n) since each node is visited once
-  # Space Complexity: O(1) since it doesn't make anything new
+  # Space Complexity: O(logn) assuming balanced tree since max mem stack being used is height of tree
   def height
     return height_helper(@root, 0)
   end
@@ -121,7 +121,16 @@ class Tree
   # Time Complexity: 
   # Space Complexity: 
   def bfs
-    raise NotImplementedError
+    list = []
+    return list if @root.nil?
+    queue = [@root]
+    until queue.empty
+      current = queue.shift
+      queue.push(current.left) unless current.left.nil?
+      queue.push(current.right) unless current.right.nil?
+
+      list << {key: current.key, value: current.value }
+    end
   end
 
   # Useful for printing
