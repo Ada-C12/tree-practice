@@ -16,47 +16,126 @@ class Tree
     @root = nil
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  def add_helper(node, key, value)
+    if node.nil?
+      node = TreeNode.new(key, value)
+    elsif key < node.key
+      node.left = add_helper(node.left, key, value)
+    elsif key > node.key
+      node.right = add_helper(node.right, key, value)
+    end
+    return node
+  end
+
+  # Time Complexity: O(1)
+  # Space Complexity: O(1)
   def add(key, value)
-    raise NotImplementedError
+    @root = add_helper(@root, key, value)
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(1)
   def find(key)
-    raise NotImplementedError
+    return find_helper(@root, key)
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  def find_helper(node, key)
+    if node.nil?
+      return nil
+    elsif node.key == key
+      return node.value
+    elsif key < node.key
+      return find_helper(node.left, key)
+    elsif key > node.key
+      return find_helper(node.right, key)
+    end
+  end
+
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def inorder
-    raise NotImplementedError
+    return inorder_helper(@root, [])
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  def inorder_helper(node, list) # list is a reference, so can pass around
+    if node.nil?
+      return list
+    end
+
+    inorder_helper(node.left, list)
+    list << {key: node.key, value: node.value}
+    inorder_helper(node.right, list)
+  end
+
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def preorder
-    raise NotImplementedError
+    return preorder_helper(@root, [])
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  def preorder_helper(node, list) # list is a reference, so can pass around
+    if node.nil?
+      return list 
+    end
+
+    list << {key: node.key, value: node.value}
+    preorder_helper(node.left, list)
+    preorder_helper(node.right, list)
+  end
+
+
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def postorder
-    raise NotImplementedError
+    return postorder_helper(@root, [])
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  def postorder_helper(node, list) # list is a reference, so can pass around
+    if node.nil?
+      return list
+    end
+
+    postorder_helper(node.left, list)
+    postorder_helper(node.right, list)
+    list << {key: node.key, value: node.value}
+  end
+
   def height
-    raise NotImplementedError
+    return height_helper(@root)
+  end
+
+  def height_helper(node)
+    if node.nil?
+      return 0
+    end
+    left_length = height_helper(node.left)
+    right_length = height_helper(node.right)
+
+    if left_length > right_length
+      longest_length = left_length
+    else
+      longest_length = right_length
+    end
+    longest_length += 1 # Add one for the current node
+    return longest_length
+
   end
 
   # Optional Method
   # Time Complexity: 
-  # Space Complexity: 
+  # Space Complexity:
   def bfs
-    raise NotImplementedError
+    list = []
+    return list if @root.nil?
+    queue = [@root]
+
+    until queue.empty
+      current = queue.shift
+      queue.push(current.left) unless current.left.nil?
+      queue.push(current.right) unless current.right.nil?
+
+      # list << { key: current.key, value: current.value }
+    end
   end
 
   # Useful for printing
