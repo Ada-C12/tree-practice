@@ -1,13 +1,13 @@
 class TreeNode
   attr_reader :key, :value
   attr_accessor :left, :right
-
-   def initialize(key, val)
+  
+  def initialize(key, val)
     @key = key
     @value = val
     @left = nil
     @right = nil
-   end
+  end
 end
 
 class Tree
@@ -15,50 +15,156 @@ class Tree
   def initialize
     @root = nil
   end
-
-  # Time Complexity: 
-  # Space Complexity: 
+  
+  # a recursive helper method for adding a node to a binary search tree
+  # def add_helper(current_node, key, value)
+  #   return TreeNode.new(key, value) if current_node.nil?
+  
+  #   if key <= current_node.key
+  #     current_node.left = add_helper(current_node.left, key, value)
+  #   else
+  #     current_node.right = add_helper(current_node.right, key, value)
+  #   end
+  # end
+  
+  # Time Complexity: O(log n) where n is number of nodes ?
+  # Space Complexity: O(n) where n is number of nodes ?
   def add(key, value)
-    raise NotImplementedError
+    
+    if @root.nil?
+      @root = TreeNode.new(key, value)
+    else
+      current = @root
+      
+      while true
+        
+        if key <= current.key
+          
+          if !current.left.nil?
+            current = current.left
+          else
+            current.left = TreeNode.new(key, value)
+            return
+          end
+          
+        else
+          
+          if !current.right.nil?
+            current = current.right
+          else
+            current.right = TreeNode.new(key, value)
+            return
+          end
+        end 
+      end
+    end
+    
+    # if using the recursive helper method instead
+    # @root = add_helper(@root, key, value)
   end
-
-  # Time Complexity: 
-  # Space Complexity: 
+  
+  # Time Complexity: O(log n) where n is number of nodes ?
+  # Space Complexity: O(1) or is this N/A?
   def find(key)
-    raise NotImplementedError
+    if @root.nil?
+      return nil
+    else
+      current = @root
+      while true
+        if key == current.key
+          return current.value
+        elsif key < current.key
+          current = current.left
+        else 
+          current = current.right
+        end
+      end
+    end
   end
-
-  # Time Complexity: 
-  # Space Complexity: 
+  
+  
+  def inorder_helper(current_node, list)
+    return list if current_node.nil?
+    
+    inorder_helper(current_node.left, list)
+    list << { key: current_node.key, value: current_node.value }
+    inorder_helper(current_node.right, list)
+    
+    return list
+  end
+  
+  # Time Complexity: O(n) where n is number of nodes
+  # Space Complexity: O(n) where n is number of nodes
   def inorder
-    raise NotImplementedError
+    return inorder_helper(@root, [])
   end
-
-  # Time Complexity: 
-  # Space Complexity: 
+  
+  
+  def preorder_helper(current_node, list)
+    return list if current_node.nil?
+    
+    list << { key: current_node.key, value: current_node.value }
+    preorder_helper(current_node.left, list)
+    preorder_helper(current_node.right, list)
+  end
+  
+  # Time Complexity: O(n) where n is number of nodes
+  # Space Complexity: O(n) where n is number of nodes 
   def preorder
-    raise NotImplementedError
+    return preorder_helper(@root, [])
   end
-
-  # Time Complexity: 
-  # Space Complexity: 
+  
+  
+  def postorder_helper(current_node, list)
+    return list if current_node.nil?
+    
+    postorder_helper(current_node.left, list)
+    postorder_helper(current_node.right, list)
+    list << { key: current_node.key, value: current_node.value }
+  end
+  
+  # Time Complexity: O(n) where n is number of nodes
+  # Space Complexity: O(n) where n is number of nodes 
   def postorder
-    raise NotImplementedError
+    return postorder_helper(@root, [])
   end
-
-  # Time Complexity: 
-  # Space Complexity: 
+  
+  
+  
+  def height_helper(current)
+    return 0 if current.nil?
+    
+    left_height = height_helper(current.left)
+    right_height = height_helper(current.right)
+    
+    return [left_height, right_height].max + 1
+  end
+  
+  # Time Complexity: O(n) where n is number of nodes
+  # Space Complexity: O(1)
   def height
-    raise NotImplementedError
+    return height_helper(@root)
   end
-
+  
   # Optional Method
   # Time Complexity: 
   # Space Complexity: 
   def bfs
     raise NotImplementedError
+    
+    # list = []
+    # return list if @root.nil?
+    # queue = [@root]
+    
+    # until queue.empty
+    #   current = queue.shift
+    #   queue.push(current.left) unless current.left.nil?
+    #   queue.push(current.right) unless current.right.nil?
+    
+    #   list << { key: current.key, value: current.value }
+    # end
   end
-
+  
   # Useful for printing
   def to_s
     return "#{self.inorder}"
