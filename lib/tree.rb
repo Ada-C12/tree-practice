@@ -2,12 +2,12 @@ class TreeNode
   attr_reader :key, :value
   attr_accessor :left, :right
 
-   def initialize(key, val)
+  def initialize(key, val)
     @key = key
     @value = val
     @left = nil
     @right = nil
-   end
+  end
 end
 
 class Tree
@@ -16,8 +16,8 @@ class Tree
     @root = nil
   end
 
-  # Time Complexity: O(log n)
-  # Space Complexity: O(log n)
+  # Time Complexity: O(log n)/ O(n)
+  # Space Complexity: O(log n) for a balanced BST; O(n) for unbalanced BST
   def add_helper(curr, key, value)
     return TreeNode.new(key, value) if curr.nil?
 
@@ -31,13 +31,11 @@ class Tree
   end
 
   def add(key, value)
-    @root = TreeNode.new(key, value) if @root.nil?
-
-    return add_helper(@root, key, value)
+    @root = add_helper(@root, key, value)
   end
 
-  # Time Complexity: O(log n)
-  # Space Complexity: O(log n)
+  # Time Complexity: O(log n)/O(n)
+  # Space Complexity: O(1)
   def find(key)
     curr = @root
 
@@ -58,10 +56,13 @@ class Tree
   # Space Complexity: O(n)
   def inorder_helper(curr, list)
     return list if curr.nil?
-
+    
+    # inorder: left - root - right 
     inorder_helper(curr.left, list)
     list << {key: curr.key, value: curr.value}
     inorder_helper(curr.right, list)
+
+    return list
   end
   
   def inorder
@@ -69,13 +70,16 @@ class Tree
   end
 
   # Time Complexity: O(n)
-  # Space Complexity: O(log n)
+  # Space Complexity: O(n)
   def preorder_helper(curr, list) 
     return list if curr.nil?
 
+    # preorder: root - left - right 
     list << { key: curr.key, value: curr.value }
     preorder_helper(curr.left, list)
     preorder_helper(curr.right, list)
+
+    return list
   end
   
   def preorder
@@ -83,13 +87,16 @@ class Tree
   end
 
   # Time Complexity: O(n)
-  # Space Complexity: O(log n)
+  # Space Complexity: O(n)
   def postorder_helper(curr, list)
     return list if curr.nil?
 
+    # postorder: left - right - root
     postorder_helper(curr.left, list)
     postorder_helper(curr.right, list)
     list << { key: curr.key, value: curr.value }
+
+    return list
   end
 
   def postorder
@@ -97,14 +104,15 @@ class Tree
   end
 
   # Time Complexity: O(n)
-  # Space Complexity: O(log n)
+  # Space Complexity: O(log n)/ O(n)
   def height_helper(curr, height)
     return height if curr.nil?
-
-    height = [left, right].max
     
-    left = height_helper(curr.left, height + 1)
-    right = height_helper(curr.right, height + 1)
+    height += 1
+    left_height = height_helper(curr.left, height)
+    right_height = height_helper(curr.right, height)
+
+    return [left_height, right_height].max
   end
 
   def height
@@ -112,10 +120,25 @@ class Tree
   end
 
   # Optional Method
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(n)
+  # Space Complexity: O(n)
   def bfs
-    raise NotImplementedError
+    visted = []
+    return visted if @root.nil?
+
+    to_visit = [@root]
+    until to_visit.empty?
+      curr = to_visit.shift
+      visted << {
+        key: curr.key,
+        value: curr.value
+      }
+      
+      to_visit << curr.left if curr.left
+      to_visit << curr.right if curr.right
+    end
+
+    return visted
   end
 
   # Useful for printing
