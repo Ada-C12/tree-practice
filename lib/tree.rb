@@ -16,51 +16,86 @@ class Tree
     @root = nil
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(log n)
+  # Space Complexity: O(1)
   def add(key, value)
-    raise NotImplementedError
+    
+    if @root.nil?
+      return @root = TreeNode.new(key, value)
+    end
+
+    curr = @root
+
+    until curr.nil?
+      prev_node = curr
+      if key <= curr.key
+        curr = curr.left
+      else
+        curr = curr.right
+      end
+    end
+
+    if key <= prev_node.key
+      prev_node.left = TreeNode.new(key, value)
+    else
+      prev_node.right = TreeNode.new(key, value)
+    end
+
+
   end
+
 
   # Time Complexity: 
   # Space Complexity: 
   def find(key)
-    raise NotImplementedError
+    
+    curr = @root
+    
+    while !curr.nil?
+      return curr.value if curr.key == key
+
+      if key < curr.key
+        curr = curr.left
+      else
+        curr = curr.right
+      end
+    end
+
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
-  def inorder
-    raise NotImplementedError
-  end
+#   # Time Complexity: 
+#   # Space Complexity: 
+#   def inorder
+#     raise NotImplementedError
+#   end
 
-  # Time Complexity: 
-  # Space Complexity: 
-  def preorder
-    raise NotImplementedError
-  end
+#   # Time Complexity: 
+#   # Space Complexity: 
+#   def preorder
+#     raise NotImplementedError
+#   end
 
-  # Time Complexity: 
-  # Space Complexity: 
-  def postorder
-    raise NotImplementedError
-  end
+#   # Time Complexity: 
+#   # Space Complexity: 
+#   def postorder
+#     raise NotImplementedError
+#   end
 
-  # Time Complexity: 
-  # Space Complexity: 
-  def height
-    raise NotImplementedError
-  end
+#   # Time Complexity: 
+#   # Space Complexity: 
+#   def height
+#     raise NotImplementedError
+#   end
 
-  # Optional Method
-  # Time Complexity: 
-  # Space Complexity: 
-  def bfs
-    raise NotImplementedError
-  end
+#   # Optional Method
+#   # Time Complexity: 
+#   # Space Complexity: 
+#   def bfs
+#     raise NotImplementedError
+#   end
 
-  # Useful for printing
-  def to_s
-    return "#{self.inorder}"
-  end
+#   # Useful for printing
+#   def to_s
+#     return "#{self.inorder}"
+#   end
 end
