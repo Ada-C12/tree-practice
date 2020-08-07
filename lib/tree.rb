@@ -8,6 +8,44 @@ class TreeNode
     @left = nil
     @right = nil
    end
+
+  def inorder
+
+    inorder_array = []
+
+    inorder_array += @left.inorder unless @left.nil?
+    inorder_array << { key: @key, value: @value }
+    inorder_array += @right.inorder unless @right.nil?
+    
+    return inorder_array
+
+  end
+
+  def preorder
+
+    preorder_array = []
+
+    preorder_array << { key: @key, value: @value }
+    preorder_array += @left.preorder unless left.nil?
+    preorder_array += @right.preorder unless right.nil?
+    
+
+    return preorder_array
+
+  end
+
+  def postorder
+
+    postorder_array = []
+
+    postorder_array += @left.postorder unless left.nil?
+    postorder_array += @right.postorder unless right.nil?
+    postorder_array << { key: @key, value: @value }
+
+    return postorder_array
+    
+  end
+
 end
 
 class Tree
@@ -45,8 +83,8 @@ class Tree
   end
 
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O (log n)
+  # Space Complexity: O(1)
   def find(key)
     
     curr = @root
@@ -65,21 +103,31 @@ class Tree
 
 #   # Time Complexity: 
 #   # Space Complexity: 
-#   def inorder
-#     raise NotImplementedError
-#   end
+  def inorder
+    
+    return [] if @root.nil?
+    return @root.inorder
+
+  end
+  
 
 #   # Time Complexity: 
 #   # Space Complexity: 
-#   def preorder
-#     raise NotImplementedError
-#   end
+  def preorder
+    
+    return [] if @root.nil?
+    return @root.preorder
+
+  end
 
 #   # Time Complexity: 
 #   # Space Complexity: 
-#   def postorder
-#     raise NotImplementedError
-#   end
+  def postorder
+    
+    return [] if @root.nil?
+    return @root.postorder
+
+  end
 
 #   # Time Complexity: 
 #   # Space Complexity: 
