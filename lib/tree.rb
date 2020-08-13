@@ -9,6 +9,33 @@ class TreeNode
     @right = nil
    end
 
+   def add(key, value)
+
+
+      if key <= @key
+        return @left = TreeNode.new(key, value) if @left.nil?
+        @left.add(key, value)
+      else
+        return @right = TreeNode.new(key, value) if @right.nil?
+        @right.add(key, value)
+      end
+
+    end
+
+    def find(key)
+
+      return @value if @key == key
+
+      if key > @key
+        return nil if @right.nil?
+        @right.find(key)
+      else
+        return nil if @left.nil?
+        @left.find(key)
+      end
+
+    end
+
   def inorder
 
     inorder_array = []
@@ -61,24 +88,8 @@ class Tree
     if @root.nil?
       return @root = TreeNode.new(key, value)
     end
-
-    curr = @root
-
-    until curr.nil?
-      prev_node = curr
-      if key <= curr.key
-        curr = curr.left
-      else
-        curr = curr.right
-      end
-    end
-
-    if key <= prev_node.key
-      prev_node.left = TreeNode.new(key, value)
-    else
-      prev_node.right = TreeNode.new(key, value)
-    end
-
+    
+    return @root.add(key, value)
 
   end
 
@@ -86,23 +97,14 @@ class Tree
   # Time Complexity: O (log n)
   # Space Complexity: O(1)
   def find(key)
-    
-    curr = @root
-    
-    while !curr.nil?
-      return curr.value if curr.key == key
-
-      if key < curr.key
-        curr = curr.left
-      else
-        curr = curr.right
-      end
-    end
+  
+    return nil if @root.nil?
+    return @root.find(key)
 
   end
 
-#   # Time Complexity: 
-#   # Space Complexity: 
+#   # Time Complexity: O(n)
+#   # Space Complexity: O(n)
   def inorder
     
     return [] if @root.nil?
@@ -111,8 +113,8 @@ class Tree
   end
   
 
-#   # Time Complexity: 
-#   # Space Complexity: 
+#   # Time Complexity: O(n)
+#   # Space Complexity: O(n)
   def preorder
     
     return [] if @root.nil?
@@ -120,8 +122,8 @@ class Tree
 
   end
 
-#   # Time Complexity: 
-#   # Space Complexity: 
+#   # Time Complexity: O(n)
+#   # Space Complexity: O(n)
   def postorder
     
     return [] if @root.nil?
@@ -131,9 +133,14 @@ class Tree
 
 #   # Time Complexity: 
 #   # Space Complexity: 
-#   def height
-#     raise NotImplementedError
-#   end
+  def height
+      
+    current = @root
+
+    return -1 if current.nil?
+    return [left.height + 1, right.height + 1].max
+
+  end
 
 #   # Optional Method
 #   # Time Complexity: 
