@@ -8,6 +8,87 @@ class TreeNode
     @left = nil
     @right = nil
    end
+
+   def add(key, value)
+
+      if key <= @key
+        return @left = TreeNode.new(key, value) if @left.nil?
+        @left.add(key, value)
+      else
+        return @right = TreeNode.new(key, value) if @right.nil?
+        @right.add(key, value)
+      end
+
+    end
+
+    def find(key)
+
+      return @value if @key == key
+
+      if key > @key
+        return nil if @right.nil?
+        @right.find(key)
+      else
+        return nil if @left.nil?
+        @left.find(key)
+      end
+
+    end
+
+  def inorder
+
+    inorder_array = []
+
+    inorder_array += @left.inorder unless @left.nil?
+    inorder_array << { key: @key, value: @value }
+    inorder_array += @right.inorder unless @right.nil?
+    
+    return inorder_array
+
+  end
+
+  def preorder
+
+    preorder_array = []
+
+    preorder_array << { key: @key, value: @value }
+    preorder_array += @left.preorder unless left.nil?
+    preorder_array += @right.preorder unless right.nil?
+    
+
+    return preorder_array
+
+  end
+
+  def postorder
+
+    postorder_array = []
+
+    postorder_array += @left.postorder unless left.nil?
+    postorder_array += @right.postorder unless right.nil?
+    postorder_array << { key: @key, value: @value }
+
+    return postorder_array
+    
+  end
+
+  def height
+
+    return 1 if @left.nil? && @right.nil?
+
+    if @left.nil?
+      @right.height + 1 
+    elsif @right.nil?
+      @left.height + 1
+    else
+      if @left.height >= @right.height
+        @left.height + 1 
+      else
+        @right.height + 1 
+      end
+    end
+
+  end
 end
 
 class Tree
@@ -16,51 +97,74 @@ class Tree
     @root = nil
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+  # Time Complexity: O(log n)
+  # Space Complexity: O(1)
   def add(key, value)
-    raise NotImplementedError
+    
+    if @root.nil?
+      return @root = TreeNode.new(key, value)
+    end
+    
+    return @root.add(key, value)
+
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+
+  # Time Complexity: O (log n)
+  # Space Complexity: O(1)
   def find(key)
-    raise NotImplementedError
+  
+    return nil if @root.nil?
+    return @root.find(key)
+
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+#   # Time Complexity: O(n)
+#   # Space Complexity: O(n)
   def inorder
-    raise NotImplementedError
-  end
+    
+    return [] if @root.nil?
+    return @root.inorder
 
-  # Time Complexity: 
-  # Space Complexity: 
+  end
+  
+
+#   # Time Complexity: O(n)
+#   # Space Complexity: O(n)
   def preorder
-    raise NotImplementedError
+    
+    return [] if @root.nil?
+    return @root.preorder
+
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+#   # Time Complexity: O(n)
+#   # Space Complexity: O(n)
   def postorder
-    raise NotImplementedError
+    
+    return [] if @root.nil?
+    return @root.postorder
+
   end
 
-  # Time Complexity: 
-  # Space Complexity: 
+#   # Time Complexity: 
+#   # Space Complexity: 
   def height
-    raise NotImplementedError
+      
+    return 0 if @root.nil?
+    return @root.height
+
   end
 
-  # Optional Method
-  # Time Complexity: 
-  # Space Complexity: 
-  def bfs
-    raise NotImplementedError
-  end
+#   # Optional Method
+#   # Time Complexity: 
+#   # Space Complexity: 
+#   def bfs
+#     raise NotImplementedError
+#   end
 
-  # Useful for printing
-  def to_s
-    return "#{self.inorder}"
-  end
+#   # Useful for printing
+#   def to_s
+#     return "#{self.inorder}"
+#   end
 end
