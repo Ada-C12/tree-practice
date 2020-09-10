@@ -73,6 +73,23 @@ class TreeNode
     
   end
 
+  def height
+
+    return 1 if @left.nil? && @right.nil?
+
+    if @left.nil?
+      @right.height + 1 
+    elsif @right.nil?
+      @left.height + 1
+    else
+      if @left.height >= @right.height
+        @left.height + 1 
+      else
+        @right.height + 1 
+      end
+    end
+
+  end
 end
 
 class Tree
@@ -135,10 +152,8 @@ class Tree
 #   # Space Complexity: 
   def height
       
-    current = @root
-
-    return -1 if current.nil?
-    return [left.height + 1, right.height + 1].max
+    return 0 if @root.nil?
+    return @root.height
 
   end
 
