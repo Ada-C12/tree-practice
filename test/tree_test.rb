@@ -15,14 +15,19 @@ describe Tree do
 
   describe "add and find" do 
     it "add & find values" do
+      expect(tree.find(5)).must_be_nil
+      
       tree.add(5, "Peter")
       expect(tree.find(5)).must_equal "Peter"
+      
 
       tree.add(15, "Ada")
       expect(tree.find(15)).must_equal "Ada"
 
       tree.add(3, "Paul")
       expect(tree.find(3)).must_equal "Paul"
+
+      expect(tree.find(7)).must_be_nil
     end
 
     it "can't find anything when the tree is empty" do
@@ -104,7 +109,9 @@ describe Tree do
       expect(tree_with_nodes.find(15)).must_equal "Ada"
 
       # Act
-      tree_with_nodes.delete(15)
+      puts tree_with_nodes.delete(15).value
+
+      p tree_with_nodes.to_s
 
       # Assert
       expect(tree_with_nodes.find(15)).must_be_nil
